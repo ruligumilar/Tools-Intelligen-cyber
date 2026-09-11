@@ -326,6 +326,53 @@
       object-position: top center;
     }
 
+    .rank-header {
+      display: flex;
+      align-items: center;
+      gap: 0.7rem;
+      margin-top: 0.5rem;
+    }
+
+    .rank-badge {
+      width: 38px;
+      height: 38px;
+      border-radius: 10px;
+      background: rgba(0, 242, 254, 0.08);
+      border: 1px solid var(--border-tactical);
+      display: grid;
+      place-items: center;
+      box-shadow: inset 0 0 10px rgba(0, 242, 254, 0.05);
+      flex-shrink: 0;
+    }
+
+    .rank-badge svg {
+      width: 22px;
+      height: 22px;
+      display: block;
+    }
+
+    .rank-badge .sigle-star,
+    .rank-badge .sigle-bar,
+    .rank-badge .crest-shape {
+      fill: var(--accent-cyan);
+    }
+
+    .rank-badge.kapten {
+      background: rgba(16, 185, 129, 0.08);
+    }
+
+    .rank-badge.letda {
+      background: rgba(0, 242, 254, 0.08);
+    }
+
+    .rank-badge.lettu {
+      background: rgba(245, 158, 11, 0.08);
+    }
+
+    .rank-badge.default {
+      background: rgba(148, 163, 184, 0.08);
+    }
+
     .rank-tag {
       display: inline-block;
       padding: 0.2rem 0.6rem;
@@ -659,7 +706,8 @@
         'doni risa t': 'doni_risa.jpeg',
         'wirangga agum efendi': 'wirangga.jpeg',
         'didi suseno': 'didi_suseno.jpeg',
-        'ruli fajar': 'ruli_fajar.jpeg'
+        'ruli fajar': 'ruli_fajar.jpeg',
+        'ruli fajar gumilar': 'ruli_fajar.jpeg'
       };
 
       const exact = Object.keys(aliases).find(key => target.includes(key) || key.includes(target));
@@ -672,6 +720,50 @@
       });
 
       return fallback || 'https://via.placeholder.com/400x300?text=No+Image';
+    }
+
+    function getRankBadgeClass(rank) {
+      const value = String(rank || '').toLowerCase();
+      if (value.includes('kapten')) return 'kapten';
+      if (value.includes('letda')) return 'letda';
+      if (value.includes('lettu')) return 'lettu';
+      return 'default';
+    }
+
+    function getRankInsigniaSvg(rank) {
+      const badgeClass = getRankBadgeClass(rank);
+
+      if (badgeClass === 'kapten') {
+        return `
+          <svg viewBox="0 0 64 64" aria-hidden="true">
+            <path class="crest-shape" d="M32 10 L38 25 L54 25 L41 34 L47 49 L32 39 L17 49 L23 34 L10 25 L26 25 Z"/>
+          </svg>
+        `;
+      }
+
+      if (badgeClass === 'letda') {
+        return `
+          <svg viewBox="0 0 64 64" aria-hidden="true">
+            <path class="sigle-star" d="M32 8 L37 24 L54 24 L40 34 L46 50 L32 39 L18 50 L24 34 L10 24 L27 24 Z"/>
+          </svg>
+        `;
+      }
+
+      if (badgeClass === 'lettu') {
+        return `
+          <svg viewBox="0 0 64 64" aria-hidden="true">
+            <rect class="sigle-bar" x="14" y="14" width="8" height="36" rx="3"/>
+            <rect class="sigle-bar" x="30" y="14" width="8" height="36" rx="3"/>
+            <rect class="sigle-bar" x="46" y="14" width="8" height="36" rx="3"/>
+          </svg>
+        `;
+      }
+
+      return `
+        <svg viewBox="0 0 64 64" aria-hidden="true">
+          <circle class="crest-shape" cx="32" cy="32" r="11"/>
+        </svg>
+      `;
     }
 
     const rawPersonnelData = [
@@ -744,6 +836,20 @@
         lng: 108.9711, 
         locName: "Brebes",
         photo: resolvePhoto("Didi Suseno")
+      },
+      {
+        id: 6,
+        name: "Ruli Fajar Gumilar",
+        rank: "Letnan Dua Inf",
+        nrp: "21110003660790",
+        position: "Danton II Ton 2 Kipan C",
+        unit: "Yonif TP 807/MNM",
+        status: "Sudah Menikah",
+        address: "Sorong selatan papua barat daya totakl jadi 6 orang.",
+        lat: -0.8762,
+        lng: 131.2558,
+        locName: "Sorong",
+        photo: resolvePhoto("Ruli Fajar Gumilar")
       }
     ];
 
@@ -843,7 +949,10 @@
               <img src="${p.photo}" class="card-photo-img" alt="${p.name}" onerror="this.src='https://via.placeholder.com/400x300?text=No+Image';">
             </div>
             <div>
-              <span class="rank-tag">${p.rank}</span>
+              <div class="rank-header">
+                <div class="rank-badge ${getRankBadgeClass(p.rank)}">${getRankInsigniaSvg(p.rank)}</div>
+                <span class="rank-tag">${p.rank}</span>
+              </div>
               <div class="card-person-name">${p.name}</div>
             </div>
             <div style="margin-top:0.8rem;">
