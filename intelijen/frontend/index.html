@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>INTELIJEN</title>
+    <link rel="stylesheet" href="./css/style.css" />
+  </head>
+  <body>
+    <main class="container">
+      <section class="card">
+        <p class="eyebrow">INTELIJEN</p>
+        <h1>INTELIJEN</h1>
+        <p class="description">
+          OSINT and public information analysis foundation.
+        </p>
+
+        <div class="status-panel" data-state="idle">
+          <span class="label">Backend status</span>
+          <strong id="statusText">Idle</strong>
+        </div>
+
+        <button id="checkStatusBtn" type="button">CHECK STATUS</button>
+        <div id="result" class="result" aria-live="polite"></div>
+      </section>
+    </main>
+
+    <script src="./js/app.js"></script>
+  </body>
+</html>
