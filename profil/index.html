@@ -24,18 +24,13 @@
       --bg-primary: #050b14;
       --bg-surface: #0a1322;
       --bg-card: rgba(10, 19, 34, 0.85);
-      --bg-card-hover: rgba(14, 27, 49, 0.95);
       --border-tactical: rgba(0, 242, 254, 0.2);
       --border-tactical-glow: rgba(0, 242, 254, 0.65);
-      --border-emerald: rgba(16, 185, 129, 0.3);
-      --border-emerald-glow: rgba(16, 185, 129, 0.7);
       --text-primary: #f8fafc;
       --text-secondary: #94a3b8;
       --text-muted: #64748b;
       --accent-cyan: #00f2fe;
-      --accent-cyan-dim: rgba(0, 242, 254, 0.12);
       --accent-emerald: #10b981;
-      --accent-emerald-dim: rgba(16, 185, 129, 0.12);
       --accent-amber: #f59e0b;
       --accent-red: #ef4444;
       --hud-grid: rgba(0, 242, 254, 0.04);
@@ -51,23 +46,16 @@
       --bg-primary: #f8fafc;
       --bg-surface: #ffffff;
       --bg-card: rgba(255, 255, 255, 0.92);
-      --bg-card-hover: rgba(241, 245, 249, 0.98);
       --border-tactical: rgba(8, 145, 178, 0.28);
       --border-tactical-glow: rgba(8, 145, 178, 0.7);
-      --border-emerald: rgba(5, 150, 105, 0.35);
-      --border-emerald-glow: rgba(5, 150, 105, 0.7);
       --text-primary: #0f172a;
       --text-secondary: #334155;
       --text-muted: #64748b;
       --accent-cyan: #0891b2;
-      --accent-cyan-dim: rgba(8, 145, 178, 0.12);
       --accent-emerald: #059669;
-      --accent-emerald-dim: rgba(5, 150, 105, 0.12);
-      --accent-amber: #d97706;
-      --accent-red: #dc2626;
       --hud-grid: rgba(8, 145, 178, 0.05);
       --hud-scanline: rgba(8, 145, 178, 0.03);
-      --shadow-tactical: 0 10px 25px -5px rgba(0, 0, 0, 0.08), 0 0 12px -2px rgba(8, 145, 178, 0.15);
+      --shadow-tactical: 0 10px 25px -5px rgba(0, 0, 0, 0.08);
     }
 
     /* ============================================================
@@ -79,10 +67,7 @@
       padding: 0;
     }
 
-    html {
-      scroll-behavior: smooth;
-      font-size: 15px;
-    }
+    html { scroll-behavior: smooth; font-size: 15px; }
 
     body {
       background-color: var(--bg-primary);
@@ -90,12 +75,10 @@
       font-family: var(--font-body);
       line-height: 1.5;
       overflow-x: hidden;
-      transition: background-color 0.3s ease, color 0.3s ease;
       min-height: 100vh;
       position: relative;
     }
 
-    /* Tactical Background Layers */
     body::before {
       content: "";
       position: fixed;
@@ -108,126 +91,20 @@
       z-index: 0;
     }
 
-    body::after {
-      content: "";
-      position: fixed;
-      inset: 0;
-      background: linear-gradient(
-        to bottom,
-        rgba(255,255,255,0),
-        rgba(255,255,255,0) 50%,
-        var(--hud-scanline) 50%,
-        var(--hud-scanline)
-      );
-      background-size: 100% 4px;
-      pointer-events: none;
-      z-index: 1;
-      opacity: 0.8;
-    }
-
     .font-display { font-family: var(--font-display); }
     .font-mono { font-family: var(--font-mono); }
     .text-cyan { color: var(--accent-cyan); }
-    .text-emerald { color: var(--accent-emerald); }
-    .text-muted { color: var(--text-muted); }
-    .bg-cyan-dim { background: var(--accent-cyan-dim); }
 
     /* ============================================================
-       3. BOOT SCREEN ANIMATION
-       ============================================================ */
-    #bootScreen {
-      position: fixed;
-      inset: 0;
-      background: #02050b;
-      z-index: 99999;
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-      justify-content: center;
-      transition: opacity 0.6s cubic-bezier(0.16, 1, 0.3, 1), visibility 0.6s;
-    }
-
-    #bootScreen.hide-boot {
-      opacity: 0;
-      visibility: hidden;
-      pointer-events: none;
-    }
-
-    .boot-box {
-      width: 90%;
-      max-width: 580px;
-      background: rgba(6, 13, 24, 0.95);
-      border: 1px solid var(--border-tactical-glow);
-      box-shadow: 0 0 40px rgba(0, 242, 254, 0.25);
-      border-radius: 12px;
-      padding: 2.2rem;
-      position: relative;
-      overflow: hidden;
-    }
-
-    .boot-box::before {
-      content: '';
-      position: absolute;
-      top: 0;
-      left: 0;
-      right: 0;
-      height: 2px;
-      background: linear-gradient(90deg, transparent, var(--accent-cyan), transparent);
-      animation: scanSweep 2s ease-in-out infinite;
-    }
-
-    @keyframes scanSweep {
-      0% { transform: translateX(-100%); }
-      100% { transform: translateX(100%); }
-    }
-
-    .boot-progress-bar {
-      height: 6px;
-      background: #0d1a2d;
-      border-radius: 3px;
-      overflow: hidden;
-      position: relative;
-      margin: 1.2rem 0;
-      border: 1px solid rgba(0, 242, 254, 0.3);
-    }
-
-    .boot-progress-fill {
-      width: 0%;
-      height: 100%;
-      background: linear-gradient(90deg, #10b981, #00f2fe);
-      box-shadow: 0 0 12px #00f2fe;
-      transition: width 0.08s linear;
-    }
-
-    .boot-log {
-      max-height: 130px;
-      overflow-y: hidden;
-      font-family: var(--font-mono);
-      font-size: 0.78rem;
-      color: var(--accent-cyan);
-      display: flex;
-      flex-direction: column;
-      gap: 0.3rem;
-    }
-
-    /* ============================================================
-       4. NAVBAR
+       3. NAVBAR
        ============================================================ */
     .tactical-navbar {
       position: sticky;
       top: 0;
-      left: 0;
-      right: 0;
       z-index: 1000;
       background: rgba(5, 11, 20, 0.85);
       backdrop-filter: blur(14px);
-      -webkit-backdrop-filter: blur(14px);
       border-bottom: 1px solid var(--border-tactical);
-      transition: all 0.3s ease;
-    }
-
-    body.light-mode .tactical-navbar {
-      background: rgba(255, 255, 255, 0.88);
     }
 
     .nav-container {
@@ -251,13 +128,12 @@
       width: 38px;
       height: 38px;
       border-radius: 8px;
-      background: linear-gradient(135deg, rgba(0, 242, 254, 0.2), rgba(16, 185, 129, 0.2));
+      background: rgba(0, 242, 254, 0.1);
       border: 1px solid var(--accent-cyan);
       display: flex;
       align-items: center;
       justify-content: center;
       color: var(--accent-cyan);
-      box-shadow: 0 0 14px rgba(0, 242, 254, 0.3);
     }
 
     .nav-menu {
@@ -272,24 +148,10 @@
       text-decoration: none;
       font-family: var(--font-mono);
       font-size: 0.82rem;
-      font-weight: 500;
-      letter-spacing: 0.05em;
-      transition: all 0.2s ease;
-      display: flex;
-      align-items: center;
-      gap: 0.4rem;
+      transition: all 0.2s;
     }
 
-    .nav-menu a:hover {
-      color: var(--accent-cyan);
-      text-shadow: 0 0 8px rgba(0, 242, 254, 0.5);
-    }
-
-    .nav-actions {
-      display: flex;
-      align-items: center;
-      gap: 0.6rem;
-    }
+    .nav-menu a:hover { color: var(--accent-cyan); }
 
     .tactical-btn-sm {
       background: var(--bg-surface);
@@ -303,56 +165,25 @@
       display: inline-flex;
       align-items: center;
       gap: 0.4rem;
-      transition: all 0.2s ease;
+      transition: all 0.2s;
     }
 
     .tactical-btn-sm:hover {
       border-color: var(--accent-cyan);
       color: var(--accent-cyan);
-      box-shadow: 0 0 10px rgba(0, 242, 254, 0.25);
-    }
-
-    .mobile-hamburger {
-      display: none;
-      background: transparent;
-      border: 1px solid var(--border-tactical);
-      color: var(--text-primary);
-      padding: 0.5rem;
-      border-radius: 6px;
-      cursor: pointer;
-      font-size: 1.1rem;
-    }
-
-    /* Mobile Drawer */
-    .mobile-nav-drawer {
-      display: none;
-      background: var(--bg-surface);
-      border-bottom: 1px solid var(--border-tactical);
-      padding: 1rem 1.5rem;
-      flex-direction: column;
-      gap: 0.8rem;
-    }
-
-    .mobile-nav-drawer.open {
-      display: flex;
     }
 
     /* ============================================================
-       5. HERO SECTION
+       4. HERO SECTION
        ============================================================ */
     .hero-section {
-      min-height: calc(100vh - 65px);
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      position: relative;
       padding: 3rem 1.5rem;
+      position: relative;
       z-index: 2;
     }
 
     .hero-container {
-      max-width: 1200px;
-      width: 100%;
+      max-width: 1400px;
       margin: 0 auto;
       display: grid;
       grid-template-columns: 1.1fr 0.9fr;
@@ -360,121 +191,24 @@
       align-items: center;
     }
 
-    .hero-badge {
-      display: inline-flex;
-      align-items: center;
-      gap: 0.5rem;
-      padding: 0.35rem 0.85rem;
-      border-radius: 9999px;
-      background: rgba(0, 242, 254, 0.08);
-      border: 1px solid var(--border-tactical);
-      font-family: var(--font-mono);
-      font-size: 0.72rem;
-      letter-spacing: 0.08em;
-      color: var(--accent-cyan);
-      margin-bottom: 1.2rem;
-    }
-
-    .pulse-dot {
-      width: 7px;
-      height: 7px;
-      border-radius: 50%;
-      background: var(--accent-emerald);
-      box-shadow: 0 0 8px var(--accent-emerald);
-      animation: pulseAnim 1.8s infinite;
-    }
-
-    @keyframes pulseAnim {
-      0% { transform: scale(0.9); opacity: 1; }
-      50% { transform: scale(1.3); opacity: 0.4; }
-      100% { transform: scale(0.9); opacity: 1; }
-    }
-
     .hero-title {
       font-family: var(--font-display);
-      font-size: clamp(2.8rem, 6vw, 4.5rem);
+      font-size: clamp(2.5rem, 5vw, 4rem);
       font-weight: 700;
       line-height: 1.05;
-      letter-spacing: 0.02em;
       margin-bottom: 0.8rem;
-      text-transform: uppercase;
       background: linear-gradient(135deg, #ffffff 40%, var(--accent-cyan) 100%);
       -webkit-background-clip: text;
       -webkit-text-fill-color: transparent;
     }
 
-    body.light-mode .hero-title {
-      background: linear-gradient(135deg, #0f172a 40%, var(--accent-cyan) 100%);
-      -webkit-background-clip: text;
-      -webkit-text-fill-color: transparent;
-    }
-
-    .hero-subtitle {
-      font-family: var(--font-display);
-      font-size: 1.25rem;
-      font-weight: 600;
-      letter-spacing: 0.15em;
-      color: var(--accent-cyan);
-      margin-bottom: 0.5rem;
-    }
-
-    .hero-tagline {
-      font-family: var(--font-mono);
-      font-size: 0.82rem;
-      color: var(--text-muted);
-      letter-spacing: 0.08em;
-      margin-bottom: 1.5rem;
-    }
-
-    .hero-desc {
-      color: var(--text-secondary);
-      font-size: 1rem;
-      line-height: 1.6;
-      max-width: 520px;
-      margin-bottom: 2rem;
-    }
-
-    .hero-actions {
-      display: flex;
-      align-items: center;
-      gap: 1rem;
-      flex-wrap: wrap;
-    }
-
-    .tactical-btn-primary {
-      background: linear-gradient(135deg, rgba(0, 242, 254, 0.25), rgba(16, 185, 129, 0.35));
-      border: 1px solid var(--accent-cyan);
-      color: #ffffff;
-      padding: 0.8rem 1.8rem;
-      border-radius: 8px;
-      font-family: var(--font-display);
-      font-size: 0.95rem;
-      font-weight: 600;
-      letter-spacing: 0.08em;
-      cursor: pointer;
-      text-decoration: none;
-      display: inline-flex;
-      align-items: center;
-      gap: 0.6rem;
-      box-shadow: 0 0 20px rgba(0, 242, 254, 0.3);
-      transition: all 0.25s cubic-bezier(0.16, 1, 0.3, 1);
-    }
-
-    .tactical-btn-primary:hover {
-      transform: translateY(-2px);
-      box-shadow: 0 0 28px rgba(0, 242, 254, 0.55);
-      border-color: #ffffff;
-    }
-
-    /* Radar HUD Visualization */
     .radar-container {
       position: relative;
       width: 100%;
-      max-width: 440px;
+      max-width: 380px;
       aspect-ratio: 1 / 1;
       margin: 0 auto;
       border-radius: 50%;
-      background: radial-gradient(circle, rgba(0, 242, 254, 0.05) 0%, rgba(10, 19, 34, 0.7) 70%);
       border: 1px solid var(--border-tactical);
       box-shadow: 0 0 35px rgba(0, 242, 254, 0.15);
       overflow: hidden;
@@ -483,137 +217,19 @@
       justify-content: center;
     }
 
-    #radarCanvas {
-      width: 100%;
-      height: 100%;
-      display: block;
-    }
-
-    .radar-center-logo {
-      position: absolute;
-      pointer-events: none;
-      text-align: center;
-    }
-
-    .radar-center-logo i {
-      font-size: 2.2rem;
-      color: var(--accent-cyan);
-      filter: drop-shadow(0 0 10px rgba(0, 242, 254, 0.8));
-    }
+    #radarCanvas { width: 100%; height: 100%; }
 
     /* ============================================================
-       6. STATISTIK SECTION
+       5. COMMAND CENTER SEARCH & FILTER
        ============================================================ */
     .section-container {
       max-width: 1400px;
       margin: 0 auto;
-      padding: 4.5rem 1.5rem;
+      padding: 2rem 1.5rem 4rem 1.5rem;
       position: relative;
       z-index: 2;
     }
 
-    .section-header {
-      margin-bottom: 2.5rem;
-    }
-
-    .section-subtitle {
-      font-family: var(--font-mono);
-      font-size: 0.75rem;
-      color: var(--accent-cyan);
-      letter-spacing: 0.15em;
-      text-transform: uppercase;
-      display: flex;
-      align-items: center;
-      gap: 0.5rem;
-      margin-bottom: 0.35rem;
-    }
-
-    .section-title {
-      font-family: var(--font-display);
-      font-size: 2rem;
-      font-weight: 700;
-      letter-spacing: 0.04em;
-      text-transform: uppercase;
-    }
-
-    .stats-grid {
-      display: grid;
-      grid-template-columns: repeat(4, 1fr);
-      gap: 1.25rem;
-    }
-
-    .stat-card {
-      background: var(--bg-card);
-      backdrop-filter: blur(12px);
-      -webkit-backdrop-filter: blur(12px);
-      border: 1px solid var(--border-tactical);
-      border-radius: 12px;
-      padding: 1.6rem;
-      position: relative;
-      overflow: hidden;
-      transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1);
-      box-shadow: var(--shadow-tactical);
-    }
-
-    .stat-card::after {
-      content: '';
-      position: absolute;
-      top: 0;
-      left: -100%;
-      width: 70%;
-      height: 100%;
-      background: linear-gradient(90deg, transparent, rgba(0,242,254,0.08), transparent);
-      transform: skewX(-25deg);
-      transition: 0.7s;
-    }
-
-    .stat-card:hover::after {
-      left: 140%;
-    }
-
-    .stat-card:hover {
-      transform: translateY(-4px);
-      border-color: var(--border-tactical-glow);
-      box-shadow: 0 12px 28px -5px rgba(0, 242, 254, 0.2);
-    }
-
-    .stat-icon {
-      font-size: 1.6rem;
-      color: var(--accent-cyan);
-      margin-bottom: 0.8rem;
-      display: inline-block;
-    }
-
-    .stat-value {
-      font-family: var(--font-display);
-      font-size: 2.8rem;
-      font-weight: 700;
-      line-height: 1;
-      color: var(--text-primary);
-      margin-bottom: 0.3rem;
-    }
-
-    .stat-label {
-      font-family: var(--font-mono);
-      font-size: 0.75rem;
-      color: var(--text-muted);
-      letter-spacing: 0.06em;
-      text-transform: uppercase;
-    }
-
-    .stat-footer-text {
-      font-family: var(--font-mono);
-      font-size: 0.7rem;
-      color: var(--accent-emerald);
-      margin-top: 0.6rem;
-      display: flex;
-      align-items: center;
-      gap: 0.4rem;
-    }
-
-    /* ============================================================
-       7. COMMAND CENTER SEARCH & FILTER
-       ============================================================ */
     .command-search-wrapper {
       background: var(--bg-card);
       border: 1px solid var(--border-tactical);
@@ -634,8 +250,6 @@
       position: absolute;
       left: 1.25rem;
       color: var(--accent-cyan);
-      font-size: 1.1rem;
-      pointer-events: none;
     }
 
     .command-search-input {
@@ -643,41 +257,18 @@
       background: rgba(3, 7, 18, 0.7);
       border: 1px solid var(--border-tactical);
       border-radius: 8px;
-      padding: 0.95rem 4rem 0.95rem 3.2rem;
+      padding: 0.95rem 1rem 0.95rem 3.2rem;
       color: var(--text-primary);
       font-family: var(--font-mono);
-      font-size: 0.95rem;
       outline: none;
-      transition: all 0.25s ease;
     }
 
-    body.light-mode .command-search-input {
-      background: #f8fafc;
-    }
-
-    .command-search-input:focus {
-      border-color: var(--accent-cyan);
-      box-shadow: 0 0 18px rgba(0, 242, 254, 0.3);
-    }
-
-    .search-shortcut-badge {
-      position: absolute;
-      right: 1.2rem;
-      background: var(--bg-surface);
-      border: 1px solid var(--border-tactical);
-      color: var(--text-muted);
-      font-family: var(--font-mono);
-      font-size: 0.75rem;
-      padding: 0.25rem 0.55rem;
-      border-radius: 4px;
-      pointer-events: none;
-    }
+    .command-search-input:focus { border-color: var(--accent-cyan); }
 
     .filter-grid {
       display: grid;
-      grid-template-columns: repeat(5, 1fr) auto auto;
+      grid-template-columns: repeat(2, 1fr) auto auto;
       gap: 0.75rem;
-      align-items: center;
     }
 
     .filter-select {
@@ -689,17 +280,10 @@
       padding: 0.6rem 0.8rem;
       border-radius: 6px;
       outline: none;
-      cursor: pointer;
-      width: 100%;
-      transition: border-color 0.2s ease;
-    }
-
-    .filter-select:focus {
-      border-color: var(--accent-cyan);
     }
 
     /* ============================================================
-       8. PERSONNEL CARDS GRID
+       6. PERSONNEL CARDS GRID
        ============================================================ */
     .personnel-grid {
       display: grid;
@@ -709,29 +293,19 @@
 
     .personnel-card {
       background: var(--bg-card);
-      backdrop-filter: blur(12px);
-      -webkit-backdrop-filter: blur(12px);
       border: 1px solid var(--border-tactical);
       border-radius: 14px;
       padding: 1.5rem;
       display: flex;
       flex-direction: column;
       justify-content: space-between;
-      position: relative;
-      transition: transform 0.25s cubic-bezier(0.16, 1, 0.3, 1), box-shadow 0.25s ease, border-color 0.25s ease;
+      transition: all 0.25s ease;
       box-shadow: var(--shadow-tactical);
     }
 
     .personnel-card:hover {
       transform: translateY(-5px);
       border-color: var(--border-tactical-glow);
-      box-shadow: 0 14px 30px -5px rgba(0, 242, 254, 0.25);
-    }
-
-    .personnel-card.card-pulse-highlight {
-      border-color: var(--accent-cyan) !important;
-      box-shadow: 0 0 30px rgba(0, 242, 254, 0.7) !important;
-      transform: scale(1.02);
     }
 
     .card-photo-container {
@@ -750,59 +324,6 @@
       height: 100%;
       object-fit: cover;
       object-position: top center;
-      transition: transform 0.35s ease;
-    }
-
-    .personnel-card:hover .card-photo-img {
-      transform: scale(1.04);
-    }
-
-    /* Default Photo Placeholder with SVG */
-    .photo-placeholder {
-      width: 100%;
-      height: 100%;
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-      justify-content: center;
-      background: linear-gradient(180deg, #071220 0%, #030811 100%);
-      color: var(--text-muted);
-      text-align: center;
-      padding: 1rem;
-    }
-
-    .photo-placeholder svg {
-      width: 52px;
-      height: 52px;
-      margin-bottom: 0.6rem;
-      stroke: var(--accent-cyan);
-      opacity: 0.4;
-    }
-
-    .photo-placeholder span {
-      font-family: var(--font-mono);
-      font-size: 0.7rem;
-      letter-spacing: 0.08em;
-      line-height: 1.3;
-      text-transform: uppercase;
-      color: var(--text-secondary);
-    }
-
-    .card-status-badge {
-      position: absolute;
-      top: 10px;
-      left: 10px;
-      background: rgba(3, 7, 18, 0.8);
-      backdrop-filter: blur(6px);
-      padding: 0.25rem 0.55rem;
-      border-radius: 4px;
-      font-family: var(--font-mono);
-      font-size: 0.68rem;
-      color: var(--accent-emerald);
-      display: flex;
-      align-items: center;
-      gap: 0.35rem;
-      border: 1px solid rgba(16, 185, 129, 0.4);
     }
 
     .rank-tag {
@@ -815,8 +336,6 @@
       font-family: var(--font-mono);
       font-size: 0.72rem;
       font-weight: 700;
-      text-transform: uppercase;
-      letter-spacing: 0.05em;
     }
 
     .card-person-name {
@@ -825,215 +344,37 @@
       font-weight: 700;
       color: var(--text-primary);
       margin-top: 0.5rem;
-      margin-bottom: 0.25rem;
-      line-height: 1.3;
     }
 
     .card-data-row {
       display: flex;
       justify-content: space-between;
-      align-items: flex-start;
+      gap: 0.5rem;
       font-family: var(--font-mono);
       font-size: 0.78rem;
       padding: 0.3rem 0;
       border-bottom: 1px dashed rgba(255, 255, 255, 0.06);
     }
 
-    body.light-mode .card-data-row {
-      border-bottom: 1px dashed rgba(0, 0, 0, 0.06);
-    }
-
     .card-data-label {
       color: var(--text-muted);
-      text-transform: uppercase;
-      font-size: 0.7rem;
+      flex-shrink: 0;
     }
 
     .card-data-val {
-      color: var(--text-primary);
       text-align: right;
-      font-weight: 500;
-      max-width: 65%;
       word-break: break-word;
     }
 
     .card-btn-grid {
       display: grid;
-      grid-template-columns: 1fr 1fr;
+      grid-template-columns: 1fr;
       gap: 0.5rem;
       margin-top: 1.2rem;
     }
 
-    .photo-upload-label {
-      grid-column: span 2;
-      background: rgba(0, 242, 254, 0.05);
-      border: 1px dashed var(--border-tactical);
-      border-radius: 6px;
-      padding: 0.55rem;
-      text-align: center;
-      font-family: var(--font-mono);
-      font-size: 0.72rem;
-      color: var(--accent-cyan);
-      cursor: pointer;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      gap: 0.4rem;
-      transition: all 0.2s ease;
-      margin-top: 0.4rem;
-    }
-
-    .photo-upload-label:hover {
-      background: rgba(0, 242, 254, 0.15);
-      border-color: var(--accent-cyan);
-    }
-
-    /* Empty Search State */
-    .empty-search-state {
-      grid-column: 1 / -1;
-      padding: 4rem 1.5rem;
-      text-align: center;
-      background: var(--bg-card);
-      border: 1px dashed var(--border-tactical);
-      border-radius: 12px;
-      font-family: var(--font-mono);
-      color: var(--text-muted);
-    }
-
     /* ============================================================
-       9. DETAIL MODAL
-       ============================================================ */
-    .modal-overlay {
-      position: fixed;
-      inset: 0;
-      background: rgba(2, 6, 12, 0.85);
-      backdrop-filter: blur(12px);
-      -webkit-backdrop-filter: blur(12px);
-      z-index: 10000;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      padding: 1.5rem;
-      opacity: 0;
-      visibility: hidden;
-      transition: opacity 0.3s ease, visibility 0.3s ease;
-    }
-
-    .modal-overlay.open {
-      opacity: 1;
-      visibility: visible;
-    }
-
-    .modal-container {
-      width: 100%;
-      max-width: 820px;
-      max-height: 90vh;
-      overflow-y: auto;
-      background: var(--bg-surface);
-      border: 1px solid var(--border-tactical-glow);
-      box-shadow: 0 0 50px rgba(0, 242, 254, 0.25);
-      border-radius: 14px;
-      position: relative;
-      transform: scale(0.95);
-      transition: transform 0.3s cubic-bezier(0.16, 1, 0.3, 1);
-    }
-
-    .modal-overlay.open .modal-container {
-      transform: scale(1);
-    }
-
-    .modal-header {
-      padding: 1.25rem 1.5rem;
-      border-bottom: 1px solid var(--border-tactical);
-      display: flex;
-      align-items: center;
-      justify-content: space-between;
-    }
-
-    .modal-close-btn {
-      background: transparent;
-      border: 1px solid var(--border-tactical);
-      color: var(--text-secondary);
-      width: 32px;
-      height: 32px;
-      border-radius: 6px;
-      cursor: pointer;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      transition: all 0.2s ease;
-    }
-
-    .modal-close-btn:hover {
-      border-color: var(--accent-red);
-      color: var(--accent-red);
-    }
-
-    .modal-body {
-      padding: 1.5rem;
-      display: grid;
-      grid-template-columns: 280px 1fr;
-      gap: 1.75rem;
-    }
-
-    .modal-large-photo {
-      width: 100%;
-      height: 340px;
-      border-radius: 8px;
-      overflow: hidden;
-      background: #040913;
-      border: 1px solid var(--border-tactical);
-    }
-
-    .modal-large-photo img {
-      width: 100%;
-      height: 100%;
-      object-fit: cover;
-      object-position: top center;
-    }
-
-    .modal-info-list {
-      display: flex;
-      flex-direction: column;
-      gap: 0.8rem;
-    }
-
-    .modal-info-item {
-      padding-bottom: 0.6rem;
-      border-bottom: 1px solid rgba(255, 255, 255, 0.06);
-    }
-
-    body.light-mode .modal-info-item {
-      border-bottom: 1px solid rgba(0, 0, 0, 0.06);
-    }
-
-    .modal-info-item .label {
-      font-family: var(--font-mono);
-      font-size: 0.72rem;
-      color: var(--text-muted);
-      text-transform: uppercase;
-      letter-spacing: 0.05em;
-    }
-
-    .modal-info-item .val {
-      font-size: 0.95rem;
-      color: var(--text-primary);
-      font-weight: 500;
-      margin-top: 0.15rem;
-    }
-
-    .modal-actions {
-      padding: 1.25rem 1.5rem;
-      border-top: 1px solid var(--border-tactical);
-      background: rgba(3, 7, 18, 0.4);
-      display: flex;
-      flex-wrap: wrap;
-      gap: 0.6rem;
-      justify-content: flex-end;
-    }
-
-    /* ============================================================
-       10. INTERACTIVE UNIT MAP (LEAFLET)
+       7. INTERACTIVE MAP SECTION
        ============================================================ */
     .map-container-box {
       width: 100%;
@@ -1046,36 +387,8 @@
       background: #070e18;
     }
 
-    #unitLocationMap {
-      width: 100%;
-      height: 100%;
-      z-index: 5;
-    }
+    #unitLocationMap { width: 100%; height: 100%; z-index: 5; }
 
-    .map-controls-overlay {
-      position: absolute;
-      top: 12px;
-      right: 12px;
-      z-index: 10;
-      display: flex;
-      gap: 0.5rem;
-    }
-
-    .map-alert-banner {
-      background: rgba(245, 158, 11, 0.15);
-      border: 1px solid rgba(245, 158, 11, 0.4);
-      color: var(--accent-amber);
-      padding: 0.6rem 1rem;
-      border-radius: 8px;
-      font-family: var(--font-mono);
-      font-size: 0.78rem;
-      margin-bottom: 1rem;
-      display: flex;
-      align-items: center;
-      gap: 0.5rem;
-    }
-
-    /* Tactical Custom Leaflet Marker */
     .custom-tactical-pin {
       width: 20px;
       height: 20px;
@@ -1110,1600 +423,547 @@
       100% { transform: scale(2.2); opacity: 0; }
     }
 
-    /* Leaflet Popup Tactical Theme */
-    .leaflet-popup-content-wrapper {
-      background: var(--bg-surface) !important;
-      color: var(--text-primary) !important;
-      border: 1px solid var(--border-tactical) !important;
-      border-radius: 8px !important;
-      box-shadow: 0 10px 25px rgba(0, 0, 0, 0.8) !important;
-      font-family: var(--font-mono) !important;
-    }
-
-    .leaflet-popup-tip {
-      background: var(--bg-surface) !important;
-    }
-
-    /* ============================================================
-       11. SYSTEM & TECHNOLOGY SECTION
-       ============================================================ */
-    .tech-cards-grid {
-      display: grid;
-      grid-template-columns: repeat(3, 1fr);
-      gap: 1.25rem;
-      margin-bottom: 2rem;
-    }
-
-    .tech-card {
-      background: var(--bg-card);
-      border: 1px solid var(--border-tactical);
-      border-radius: 10px;
-      padding: 1.35rem;
-    }
-
-    .tech-card-header {
-      display: flex;
-      align-items: center;
-      gap: 0.75rem;
-      margin-bottom: 0.8rem;
-    }
-
-    .tech-card-icon {
-      font-size: 1.3rem;
-      color: var(--accent-cyan);
-    }
-
-    .tech-card-title {
-      font-family: var(--font-display);
-      font-size: 1rem;
-      font-weight: 700;
-      letter-spacing: 0.05em;
-    }
-
-    .tech-card-list {
-      list-style: none;
-      font-size: 0.82rem;
-      color: var(--text-secondary);
-      display: flex;
-      flex-direction: column;
-      gap: 0.35rem;
-    }
-
-    .tech-card-list li::before {
-      content: "▹";
-      color: var(--accent-cyan);
-      margin-right: 0.5rem;
-    }
-
-    /* Architecture Diagram Box */
-    .arch-diagram-box {
-      background: #040913;
-      border: 1px solid var(--border-tactical);
-      border-radius: 10px;
-      padding: 1.8rem;
-      font-family: var(--font-mono);
-      font-size: 0.85rem;
-      color: var(--accent-cyan);
-      white-space: pre;
-      overflow-x: auto;
-      line-height: 1.45;
-      margin-bottom: 2rem;
-    }
-
-    .roadmap-timeline {
-      display: grid;
-      grid-template-columns: repeat(5, 1fr);
-      gap: 0.8rem;
-      margin-top: 1.5rem;
-    }
-
-    .roadmap-step {
-      background: var(--bg-card);
-      border: 1px solid var(--border-tactical);
-      border-radius: 8px;
-      padding: 1rem;
-      font-family: var(--font-mono);
-      font-size: 0.78rem;
-      text-align: center;
-    }
-
-    .roadmap-step.active {
-      border-color: var(--accent-emerald);
-      background: rgba(16, 185, 129, 0.08);
-      color: var(--accent-emerald);
-    }
-
-    /* ============================================================
-       12. TOAST NOTIFICATION
-       ============================================================ */
-    #toastContainer {
-      position: fixed;
-      bottom: 24px;
-      right: 24px;
-      z-index: 99999;
-      display: flex;
-      flex-direction: column;
-      gap: 0.6rem;
-      pointer-events: none;
-    }
-
-    .toast-item {
-      background: var(--bg-surface);
-      border: 1px solid var(--accent-cyan);
-      color: var(--text-primary);
-      padding: 0.75rem 1.2rem;
-      border-radius: 8px;
-      font-family: var(--font-mono);
-      font-size: 0.82rem;
-      box-shadow: 0 10px 25px rgba(0, 0, 0, 0.8);
-      display: flex;
-      align-items: center;
-      gap: 0.6rem;
-      animation: toastSlideIn 0.3s cubic-bezier(0.16, 1, 0.3, 1);
-      pointer-events: auto;
-    }
-
-    @keyframes toastSlideIn {
-      from { transform: translateX(100%); opacity: 0; }
-      to { transform: translateX(0); opacity: 1; }
-    }
-
-    /* ============================================================
-       13. FOOTER
-       ============================================================ */
-    .tactical-footer {
-      border-top: 1px solid var(--border-tactical);
-      background: var(--bg-surface);
-      padding: 2.5rem 1.5rem;
-      font-family: var(--font-mono);
-      font-size: 0.8rem;
-      color: var(--text-muted);
+    .tech-explain-section {
+      max-width: 1400px;
+      margin: 0 auto;
+      padding: 0 1.5rem 4rem;
       position: relative;
       z-index: 2;
     }
 
-    .footer-content {
-      max-width: 1400px;
-      margin: 0 auto;
-      display: flex;
-      align-items: center;
-      justify-content: space-between;
-      flex-wrap: wrap;
+    .tech-box {
+      background: var(--bg-card);
+      border: 1px solid var(--border-tactical);
+      border-radius: 14px;
+      padding: 1.5rem;
+      box-shadow: var(--shadow-tactical);
+    }
+
+    .tech-grid {
+      display: grid;
+      grid-template-columns: repeat(4, minmax(0, 1fr));
       gap: 1rem;
+      margin-top: 1.25rem;
     }
 
-    /* ============================================================
-       14. RESPONSIVE BREAKPOINTS
-       ============================================================ */
-    @media (max-width: 1100px) {
+    .tech-card {
+      background: rgba(10, 19, 34, 0.8);
+      border: 1px solid var(--border-tactical);
+      border-radius: 10px;
+      padding: 1rem;
+      transition: all 0.2s ease;
+    }
+
+    .tech-card:hover {
+      transform: translateY(-3px);
+      border-color: var(--border-tactical-glow);
+    }
+
+    .tech-card i {
+      color: var(--accent-cyan);
+      font-size: 1.2rem;
+      margin-bottom: 0.6rem;
+      display: inline-block;
+    }
+
+    .tech-card h3 {
+      font-family: var(--font-display);
+      font-size: 1rem;
+      text-transform: uppercase;
+      margin-bottom: 0.45rem;
+    }
+
+    .tech-card p {
+      color: var(--text-secondary);
+      font-size: 0.82rem;
+      line-height: 1.7;
+    }
+
+    /* Responsive */
+    @media (max-width: 1024px) {
+      .hero-container { grid-template-columns: 1fr; text-align: center; }
       .personnel-grid { grid-template-columns: repeat(2, 1fr); }
-      .stats-grid { grid-template-columns: repeat(2, 1fr); }
-      .tech-cards-grid { grid-template-columns: repeat(2, 1fr); }
-      .roadmap-timeline { grid-template-columns: repeat(3, 1fr); }
-      .filter-grid { grid-template-columns: repeat(3, 1fr); }
-    }
-
-    @media (max-width: 768px) {
-      .hero-container { grid-template-columns: 1fr; gap: 2rem; text-align: center; }
-      .hero-actions { justify-content: center; }
-      .hero-desc { margin-left: auto; margin-right: auto; }
-      .personnel-grid { grid-template-columns: 1fr; }
-      .nav-menu { display: none; }
-      .mobile-hamburger { display: block; }
-      .modal-body { grid-template-columns: 1fr; }
-      .modal-large-photo { height: 260px; }
       .filter-grid { grid-template-columns: 1fr; }
-      .tech-cards-grid { grid-template-columns: 1fr; }
-      .roadmap-timeline { grid-template-columns: 1fr; }
+      .tech-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); }
     }
 
-    /* ============================================================
-       15. PRINT MEDIA QUERY
-       ============================================================ */
-    @media print {
-      body {
-        background: #ffffff !important;
-        color: #000000 !important;
-      }
-      body::before, body::after, #bootScreen, .tactical-navbar,
-      .hero-section, .command-search-wrapper, #mapSection,
-      #techSection, .tactical-footer, #toastContainer, .card-btn-grid,
-      .photo-upload-label, .modal-close-btn, .modal-actions {
-        display: none !important;
-      }
-      .modal-overlay {
-        position: static !important;
-        background: none !important;
-        opacity: 1 !important;
-        visibility: visible !important;
-        padding: 0 !important;
-      }
-      .modal-container {
-        border: none !important;
-        box-shadow: none !important;
-        max-width: 100% !important;
-      }
-      .modal-body {
-        grid-template-columns: 240px 1fr !important;
-        color: #000 !important;
-      }
+    @media (max-width: 640px) {
+      .personnel-grid { grid-template-columns: 1fr; }
+      .tech-grid { grid-template-columns: 1fr; }
+    }
+
+    @media (max-width: 640px) {
+      .personnel-grid { grid-template-columns: 1fr; }
     }
   </style>
 </head>
-
 <body>
-  <!-- ============================================================
-       A. BOOT SCREEN OVERLAY
-       ============================================================ -->
-  <div id="bootScreen">
-    <div class="boot-box">
-      <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 0.8rem;">
-        <span class="font-mono text-cyan" style="font-size: 0.82rem; font-weight: 700;">// SECURE BOOT PROTOCOL</span>
-        <span class="font-mono text-muted" style="font-size: 0.75rem;">DEFCON 4</span>
-      </div>
-      <h2 class="font-display" style="font-size: 1.6rem; color: #fff; margin-bottom: 0.2rem;">SINDIKAT 2</h2>
-      <p class="font-mono text-muted" style="font-size: 0.75rem; letter-spacing: 0.1em;">PERSONNEL INTELLIGENCE SYSTEM</p>
 
-      <div class="boot-progress-bar">
-        <div class="boot-progress-fill" id="bootFill"></div>
-      </div>
-
-      <div style="display: flex; justify-content: space-between; font-family: var(--font-mono); font-size: 0.72rem; color: var(--text-muted); margin-bottom: 0.8rem;">
-        <span>LOAD SEQUENCE</span>
-        <span id="bootPercent" class="text-cyan">0%</span>
-      </div>
-
-      <div class="boot-log" id="bootLogContainer">
-        <!-- Log items injected by JavaScript -->
-      </div>
-    </div>
-  </div>
-
-  <!-- ============================================================
-       B. TACTICAL STICKY NAVBAR
-       ============================================================ -->
-  <nav class="tactical-navbar" id="mainNavbar">
+  <!-- NAVBAR -->
+  <nav class="tactical-navbar">
     <div class="nav-container">
-      <a href="#hero" class="nav-brand">
-        <div class="nav-brand-icon">
-          <i class="fa-solid fa-shield-halved"></i>
-        </div>
+      <a href="#" class="nav-brand">
+        <div class="nav-brand-icon"><i class="fa-solid fa-crosshairs"></i></div>
         <div>
-          <div class="font-display" style="font-weight: 700; font-size: 1.15rem; letter-spacing: 0.05em; line-height: 1;">SINDIKAT 2</div>
-          <div class="font-mono text-cyan" style="font-size: 0.65rem; letter-spacing: 0.12em;">PERSONNEL INTEL</div>
+          <div class="font-display" style="font-weight:700; font-size:1.1rem; line-height:1;">SINDIKAT 2</div>
+          <div class="font-mono text-muted" style="font-size:0.65rem;">TACTICAL INTEL HUD</div>
         </div>
       </a>
-
       <ul class="nav-menu">
-        <li><a href="#hero"><i class="fa-solid fa-house text-cyan" style="font-size: 0.8rem;"></i> HOME</a></li>
-        <li><a href="#statistics"><i class="fa-solid fa-chart-simple text-cyan" style="font-size: 0.8rem;"></i> STATISTIK</a></li>
-        <li><a href="#personnelSection"><i class="fa-solid fa-users text-cyan" style="font-size: 0.8rem;"></i> PERSONEL</a></li>
-        <li><a href="#mapSection"><i class="fa-solid fa-map-location-dot text-cyan" style="font-size: 0.8rem;"></i> MAP</a></li>
-        <li><a href="#techSection"><i class="fa-solid fa-microchip text-cyan" style="font-size: 0.8rem;"></i> TECHNOLOGY</a></li>
+        <li><a href="#directory"><i class="fa-solid fa-users-viewfinder"></i> PERSONNEL</a></li>
+        <li><a href="#mapSection"><i class="fa-solid fa-map-location-dot"></i> LIVE MAP</a></li>
       </ul>
-
-      <div class="nav-actions">
-        <button class="tactical-btn-sm" id="btnNavSearch" title="Fokus Search (Ctrl + K)">
-          <i class="fa-solid fa-magnifying-glass"></i>
-          <span class="font-mono" style="font-size: 0.72rem;">Ctrl+K</span>
-        </button>
-        <button class="tactical-btn-sm" id="btnToggleTheme" title="Ganti Tema Dark / Light">
-          <i class="fa-solid fa-circle-half-stroke"></i>
-        </button>
-        <button class="tactical-btn-sm" id="btnToggleFullscreen" title="Layar Penuh">
-          <i class="fa-solid fa-expand"></i>
-        </button>
-        <button class="mobile-hamburger" id="btnMobileMenu" title="Menu Navigasi Mobile">
-          <i class="fa-solid fa-bars"></i>
-        </button>
-      </div>
-    </div>
-
-    <!-- Mobile Drawer -->
-    <div class="mobile-nav-drawer" id="mobileDrawer">
-      <a href="#hero" class="tactical-btn-sm" onclick="toggleMobileMenu()"><i class="fa-solid fa-house"></i> HOME</a>
-      <a href="#statistics" class="tactical-btn-sm" onclick="toggleMobileMenu()"><i class="fa-solid fa-chart-simple"></i> STATISTIK</a>
-      <a href="#personnelSection" class="tactical-btn-sm" onclick="toggleMobileMenu()"><i class="fa-solid fa-users"></i> PERSONEL</a>
-      <a href="#mapSection" class="tactical-btn-sm" onclick="toggleMobileMenu()"><i class="fa-solid fa-map-location-dot"></i> MAP</a>
-      <a href="#techSection" class="tactical-btn-sm" onclick="toggleMobileMenu()"><i class="fa-solid fa-microchip"></i> TECHNOLOGY</a>
+      <button class="tactical-btn-sm" id="themeToggleBtn"><i class="fa-solid fa-moon"></i> THEME</button>
     </div>
   </nav>
 
-  <!-- ============================================================
-       C. HERO SECTION WITH RADAR SCANNER
-       ============================================================ -->
-  <section class="hero-section" id="hero">
+  <!-- HERO SECTION -->
+  <section class="hero-section">
     <div class="hero-container">
       <div>
-        <div class="hero-badge">
-          <span class="pulse-dot"></span>
-          <span>SECURE PERSONNEL INFORMATION SYSTEM</span>
-        </div>
-        <h1 class="hero-title">SINDIKAT 2</h1>
-        <div class="hero-subtitle">PERSONNEL INTELLIGENCE PROFILE</div>
-        <div class="hero-tagline">
-          <i class="fa-solid fa-lock text-cyan"></i> CLASSIFIED DIRECTORY // MATRA DARAT & LAUT TERPADU
-        </div>
-        <p class="hero-desc">
-          Platform terpusat intelijen personel untuk pemantauan struktur penempatan komando, hierarki perwira, serta koordinat kesatuan secara real-time dan aman.
+        <h1 class="hero-title">SINDIKAT 2 COMMAND</h1>
+        <p style="color: var(--text-secondary); max-width: 500px; margin-bottom: 1.5rem;">
+          Sistem Pemantauan dan Intelijen Personel Terpadu dengan Pelacakan Koordinat Geospasial Real-time.
         </p>
-        <div class="hero-actions">
-          <a href="#personnelSection" class="tactical-btn-primary">
-            <i class="fa-solid fa-address-card"></i>
-            <span>LIHAT PERSONEL</span>
-          </a>
-          <button class="tactical-btn-sm" id="btnToggleMask" style="padding: 0.8rem 1.2rem; font-size: 0.85rem;">
-            <i class="fa-solid fa-shield-halved text-cyan"></i>
-            <span id="maskBtnText">MASK SENSITIVE DATA</span>
-          </button>
-        </div>
       </div>
-
-      <!-- Radar HUD Visual -->
-      <div class="radar-container">
-        <canvas id="radarCanvas"></canvas>
-        <div class="radar-center-logo">
-          <i class="fa-solid fa-satellite-dish"></i>
-          <div class="font-mono text-cyan" style="font-size: 0.65rem; margin-top: 0.4rem; letter-spacing: 0.1em;">SCANNING AREA</div>
+      <div>
+        <div class="radar-container">
+          <canvas id="radarCanvas" width="380" height="380"></canvas>
         </div>
       </div>
     </div>
   </section>
 
-  <!-- ============================================================
-       D. STATISTIK SECTION
-       ============================================================ -->
-  <section class="section-container" id="statistics" style="padding-top: 2rem;">
-    <div class="section-header">
-      <div class="section-subtitle">
-        <i class="fa-solid fa-chart-line"></i> METRICS & RECONNAISSANCE
-      </div>
-      <h2 class="section-title">DASHBOARD STATISTIK</h2>
+  <!-- COMMAND CENTER DIRECTORY -->
+  <section class="section-container" id="directory">
+    <div style="margin-bottom: 1.5rem;">
+      <h2 class="font-display" style="font-size: 1.8rem; text-transform: uppercase;">DIRECTORY PERSONEL</h2>
     </div>
 
-    <div class="stats-grid">
-      <div class="stat-card">
-        <i class="fa-solid fa-users-viewfinder stat-icon"></i>
-        <div class="stat-value" id="counterTotal">0</div>
-        <div class="stat-label">TOTAL PERSONEL</div>
-        <div class="stat-footer-text">
-          <i class="fa-solid fa-check-double"></i> 100% Terverifikasi
-        </div>
-      </div>
-
-      <div class="stat-card">
-        <i class="fa-solid fa-user-shield stat-icon"></i>
-        <div class="stat-value" id="counterPerwira">0</div>
-        <div class="stat-label">TOTAL PERWIRA</div>
-        <div class="stat-footer-text">
-          <i class="fa-solid fa-medal"></i> Kapten, Lettu, Letda
-        </div>
-      </div>
-
-      <div class="stat-card">
-        <i class="fa-solid fa-building-shield stat-icon"></i>
-        <div class="stat-value" id="counterSatuan">0</div>
-        <div class="stat-label">TOTAL SATUAN</div>
-        <div class="stat-footer-text">
-          <i class="fa-solid fa-crosshairs"></i> Matra Darat & Laut
-        </div>
-      </div>
-
-      <div class="stat-card">
-        <i class="fa-solid fa-tower-broadcast stat-icon"></i>
-        <div class="stat-value text-cyan" style="font-size: 2.2rem; font-weight: 700;">ONLINE</div>
-        <div class="stat-label">STATUS SYSTEM</div>
-        <div class="stat-footer-text">
-          <span class="pulse-dot"></span> Zero Transmission Leak
-        </div>
-      </div>
-    </div>
-  </section>
-
-  <!-- ============================================================
-       E. PERSONNEL DIRECTORY (SEARCH, FILTER, CARDS)
-       ============================================================ -->
-  <section class="section-container" id="personnelSection">
-    <div class="section-header">
-      <div class="section-subtitle">
-        <i class="fa-solid fa-id-card-clip"></i> CLASSIFIED DOSSIER REGISTRY
-      </div>
-      <h2 class="section-title">DAFTAR PERSONEL SINDIKAT 2</h2>
-      <p class="font-mono text-muted" style="font-size: 0.8rem; margin-top: 0.25rem;">
-        Disusun hierarki kepangkatan perwira (Kapten &rarr; Lettu &rarr; Letda, alfabetis nama jika pangkat setingkat)
-      </p>
-    </div>
-
-    <!-- Command Search & Filters -->
+    <!-- Search & Filters -->
     <div class="command-search-wrapper">
       <div class="search-input-box">
-        <i class="fa-solid fa-terminal search-icon-prefix"></i>
-        <input 
-          type="text" 
-          id="commandSearchInput" 
-          class="command-search-input" 
-          placeholder="SEARCH PERSONNEL... Cari nama, NRP, pangkat, jabatan, atau satuan"
-        />
-        <span class="search-shortcut-badge">CTRL + K</span>
+        <i class="fa-solid fa-magnifying-glass search-icon-prefix"></i>
+        <input type="text" id="searchInput" class="command-search-input" placeholder="Cari nama, NRP, jabatan, satuan, atau alamat..." />
       </div>
-
       <div class="filter-grid">
-        <!-- Filter Pangkat -->
-        <select id="filterPangkat" class="filter-select">
-          <option value="all">Semua Pangkat</option>
-          <option value="Kapten">Kapten</option>
-          <option value="Lettu">Lettu</option>
-          <option value="Letda">Letda</option>
-        </select>
-
-        <!-- Filter Satuan -->
-        <select id="filterSatuan" class="filter-select">
-          <option value="all">Semua Satuan</option>
-        </select>
-
-        <!-- Filter Status -->
-        <select id="filterStatus" class="filter-select">
-          <option value="all">Semua Status</option>
-        </select>
-
-        <!-- Filter Wilayah -->
-        <select id="filterWilayah" class="filter-select">
-          <option value="all">Semua Wilayah</option>
-        </select>
-
-        <!-- Sorting Hierarki -->
-        <select id="sortSelection" class="filter-select">
-          <option value="pangkat_hierarki">Urutkan: Pangkat Tertinggi</option>
-          <option value="nama_asc">Urutkan: Nama A-Z</option>
-          <option value="nama_desc">Urutkan: Nama Z-A</option>
-          <option value="satuan">Urutkan: Satuan</option>
-          <option value="jabatan">Urutkan: Jabatan</option>
-        </select>
-
-        <!-- Reset Button -->
-        <button class="tactical-btn-sm" id="btnResetFilter">
-          <i class="fa-solid fa-arrow-rotate-left"></i>
-          <span>RESET</span>
-        </button>
-
-        <!-- Print Button -->
-        <button class="tactical-btn-sm" id="btnPrintDirectory" onclick="window.print()">
-          <i class="fa-solid fa-print"></i>
-          <span>PRINT</span>
-        </button>
+        <select id="filterRank" class="filter-select"><option value="">Semua Pangkat</option></select>
+        <select id="filterUnit" class="filter-select"><option value="">Semua Satuan</option></select>
+        <button class="tactical-btn-sm" id="resetFiltersBtn"><i class="fa-solid fa-rotate-left"></i> RESET</button>
+        <button class="tactical-btn-sm" id="exportDataBtn"><i class="fa-solid fa-download"></i> EXPORT CSV</button>
       </div>
     </div>
 
-    <!-- Personnel Cards Grid -->
-    <div class="personnel-grid" id="personnelCardsContainer">
-      <!-- Generated via JavaScript -->
-    </div>
+    <!-- Personnel Grid -->
+    <div class="personnel-grid" id="personnelGridContainer"></div>
   </section>
 
-  <!-- ============================================================
-       F. INTERACTIVE MAP SECTION (LEAFLET)
-       ============================================================ -->
+  <!-- INTERACTIVE MAP SECTION -->
   <section class="section-container" id="mapSection">
-    <div class="section-header">
-      <div class="section-subtitle">
-        <i class="fa-solid fa-earth-asia"></i> GEOSPATIAL DISPATCH
-      </div>
-      <h2 class="section-title">INTERACTIVE UNIT MAP</h2>
-      <p class="font-mono text-muted" style="font-size: 0.8rem; margin-top: 0.25rem;">
-        Peta penempatan taktis satuan matra darat & laut seluruh Indonesia
-      </p>
+    <div style="margin-bottom: 1.5rem;">
+      <h2 class="font-display" style="font-size: 1.8rem; text-transform: uppercase;">PETA LOKASI UTAMA PERSONEL</h2>
     </div>
-
-    <div class="map-alert-banner" id="mapCoordsAlert">
-      <i class="fa-solid fa-triangle-exclamation"></i>
-      <span>STATUS: LOCATION DATA NOT AVAILABLE. Seluruh koordinat awal bernilai null (kerahasiaan dinas militer). Marker hanya muncul setelah koordinat diinput secara valid.</span>
-    </div>
-
     <div class="map-container-box">
-      <div class="map-controls-overlay">
-        <button class="tactical-btn-sm" id="mapLayerDark" title="Dark Map Theme">
-          <i class="fa-solid fa-moon"></i> DARK
-        </button>
-        <button class="tactical-btn-sm" id="mapLayerStandard" title="Standard OSM Theme">
-          <i class="fa-solid fa-sun"></i> STANDARD
-        </button>
-        <button class="tactical-btn-sm" id="btnFitAllMap" title="Tampilkan Semua Lokasi">
-          <i class="fa-solid fa-expand"></i> FIT ALL
-        </button>
-      </div>
-
       <div id="unitLocationMap"></div>
     </div>
   </section>
 
-  <!-- ============================================================
-       G. SYSTEM & TECHNOLOGY SECTION
-       ============================================================ -->
-  <section class="section-container" id="techSection">
-    <div class="section-header">
-      <div class="section-subtitle">
-        <i class="fa-solid fa-code"></i> ARCHITECTURE & ENTERPRISE ROADMAP
-      </div>
-      <h2 class="section-title">SYSTEM & TECHNOLOGY</h2>
-      <p class="font-mono text-muted" style="font-size: 0.8rem; margin-top: 0.25rem;">
-        Spesifikasi arsitektur Client-Side Web Application & transisi menuju Production Grade
+  <section class="tech-explain-section">
+    <div class="tech-box">
+      <h2 class="font-display" style="font-size: 1.8rem; text-transform: uppercase; margin-bottom: 0.4rem;">TEKNOLOGI YANG DIGUNAKAN</h2>
+      <p style="color: var(--text-secondary); max-width: 900px; line-height: 1.7;">
+        Halaman ini dibuat dengan kombinasi teknologi frontend modern agar tampil cepat, responsif, dan mudah dipelihara. berikut teknologi utama yang dipakai serta fungsinya dalam aplikasi ini.
       </p>
-    </div>
 
-    <div class="tech-cards-grid">
-      <div class="tech-card">
-        <div class="tech-card-header">
-          <i class="fa-brands fa-html5 tech-card-icon"></i>
-          <div class="tech-card-title">HTML5 & SEMANTIC UI</div>
+      <div class="tech-grid">
+        <div class="tech-card">
+          <i class="fa-brands fa-html5"></i>
+          <h3>HTML5</h3>
+          <p>Digunakan untuk struktur utama halaman, konten personel, peta, dan elemen antarmuka seperti form pencarian serta kartu data.</p>
         </div>
-        <ul class="tech-card-list">
-          <li>Struktur semantik modular single-file</li>
-          <li>Dialog dosir personel & modal accessible</li>
-          <li>File input terisolasi browser FileReader</li>
-        </ul>
-      </div>
 
-      <div class="tech-card">
-        <div class="tech-card-header">
-          <i class="fa-brands fa-css3-alt tech-card-icon"></i>
-          <div class="tech-card-title">CSS3 & MODERN HUD</div>
+        <div class="tech-card">
+          <i class="fa-brands fa-css3-alt"></i>
+          <h3>CSS3</h3>
+          <p>Mengatur tema gelap, layout, responsivitas, animasi radar, border, shadow, dan tampilan kartu profil agar terlihat profesional.</p>
         </div>
-        <ul class="tech-card-list">
-          <li>Glassmorphism & Tactical Grid scanline</li>
-          <li>CSS Variables untuk Dark/Light Theme</li>
-          <li>Animasi transform ringan 60 FPS</li>
-        </ul>
-      </div>
 
-      <div class="tech-card">
-        <div class="tech-card-header">
-          <i class="fa-brands fa-js tech-card-icon"></i>
-          <div class="tech-card-title">JAVASCRIPT ES6+</div>
+        <div class="tech-card">
+          <i class="fa-brands fa-js"></i>
+          <h3>JavaScript</h3>
+          <p>Digunakan untuk menyusun data personel, filter pencarian, tombol reset, render kartu dinamis, serta interaksi navigasi di peta.</p>
         </div>
-        <ul class="tech-card-list">
-          <li>Hierarki kepangkatan perwira otomatis</li>
-          <li>Debounced search & Clipboard API</li>
-          <li>Memory object model tanpa backend eksternal</li>
-        </ul>
-      </div>
 
-      <div class="tech-card">
-        <div class="tech-card-header">
-          <i class="fa-solid fa-map tech-card-icon"></i>
-          <div class="tech-card-title">LEAFLET & OSM</div>
+        <div class="tech-card">
+          <i class="fa-solid fa-map-location-dot"></i>
+          <h3>Leaflet</h3>
+          <p>Library peta yang dipakai untuk menampilkan koordinat lokasi personel, marker, popup, dan zoom/fit view geospasial secara interaktif.</p>
         </div>
-        <ul class="tech-card-list">
-          <li>Peta interaktif offline-ready</li>
-          <li>Tile provider legal OpenStreetMap & CARTO</li>
-          <li>Pencegahan error koordinat null yang aman</li>
-        </ul>
       </div>
 
-      <div class="tech-card">
-        <div class="tech-card-header">
-          <i class="fa-solid fa-shield-virus tech-card-icon"></i>
-          <div class="tech-card-title">DATA MASKING</div>
+      <div class="tech-grid" style="margin-top: 1rem;">
+        <div class="tech-card">
+          <i class="fa-solid fa-icons"></i>
+          <h3>Font Awesome</h3>
+          <p>Menambahkan ikon seperti user, map, search, download, dan tombol navigasi agar antarmuka lebih informatif dan mudah dibaca.</p>
         </div>
-        <ul class="tech-card-list">
-          <li>Penyamaran NRP format `2111********0790`</li>
-          <li>Proteksi alamat satuan dari tampilan publik</li>
-          <li>Zero server transmission prototype</li>
-        </ul>
-      </div>
 
-      <div class="tech-card">
-        <div class="tech-card-header">
-          <i class="fa-solid fa-print tech-card-icon"></i>
-          <div class="tech-card-title">PRINT PROFILE STYLES</div>
+        <div class="tech-card">
+          <i class="fa-solid fa-font"></i>
+          <h3>Google Fonts</h3>
+          <p>Menggunakan tipe huruf khusus seperti Chakra Petch dan JetBrains Mono untuk kesan dashboard militer modern dan teknis.</p>
         </div>
-        <ul class="tech-card-list">
-          <li>CSS @media print format dosir resmi</li>
-          <li>Pembersihan elemen gelap & animasi saat cetak</li>
-          <li>Tata letak bersih untuk arsip komando</li>
-        </ul>
-      </div>
-    </div>
 
-    <!-- Client-Side vs Production Architecture Diagram -->
-    <div class="section-subtitle" style="margin-bottom: 0.6rem;">
-      <i class="fa-solid fa-sitemap"></i> SYSTEM ARCHITECTURE DIAGRAM
-    </div>
-    <div class="arch-diagram-box">
-USER
-  │
-  ▼
-WEB BROWSER
-  │
-  ▼
-index.html (Single HTML Architecture)
-  │
-  ├──────────────────────────────┐
-  │                              │
-  ▼                              ▼
-HTML5 (Semantic Layout)        CSS3 (Tactical Grid & HUD Variables)
-  │                              │
-  └──────────────┬───────────────┘
-                 ▼
-            JavaScript ES6+
-                 │
-  ┌──────────────┼──────────────┬──────────────┐
-  │              │              │              │
-  ▼              ▼              ▼              ▼
-DATA MODEL   SEARCH & FILTER  MODAL DOSIR  LEAFLET.JS ENGINE
-(personnel)   (Ctrl+K Debounce) (Clipboard)   (OpenStreetMap Tiles)
-    </div>
+        <div class="tech-card">
+          <i class="fa-solid fa-image"></i>
+          <h3>Local Assets</h3>
+          <p>Foto personel disimpan secara lokal agar lebih cepat dimuat, konsisten, dan tidak bergantung pada URL eksternal yang bisa berubah.</p>
+        </div>
 
-    <!-- Security Note -->
-    <div class="map-alert-banner" style="border-color: rgba(0, 242, 254, 0.4); background: rgba(0, 242, 254, 0.08); color: var(--text-primary); margin-bottom: 2rem;">
-      <i class="fa-solid fa-circle-info text-cyan" style="font-size: 1.1rem;"></i>
-      <div>
-        <strong class="text-cyan">CATATAN KEAMANAN SISTEM:</strong> Versi single-file ini merupakan prototype antarmuka client-side. Data yang berada di dalam HTML dapat dilihat oleh pengguna yang memiliki akses langsung terhadap file. Untuk implementasi operasional militer dengan data aktual, sistem disarankan dipindahkan ke backend yang dilengkapi otentikasi JWT, otorisasi RBAC (*Admin, Operator, Viewer*), protokol HTTPS/TLS, audit logging, rate limiting, dan database terenkripsi (PostgreSQL).
-      </div>
-    </div>
-
-    <!-- Production Roadmap -->
-    <div class="section-subtitle" style="margin-bottom: 0.6rem;">
-      <i class="fa-solid fa-list-ol"></i> ENTERPRISE PRODUCTION ROADMAP
-    </div>
-    <div class="roadmap-timeline">
-      <div class="roadmap-step active">
-        <div style="font-weight: 700; color: var(--accent-emerald);">PHASE 1 - 3</div>
-        <div style="font-size: 0.7rem; margin-top: 0.2rem;">Single HTML + Leaflet</div>
-      </div>
-      <div class="roadmap-step">
-        <div style="font-weight: 700;">PHASE 4</div>
-        <div style="font-size: 0.7rem; margin-top: 0.2rem;">Backend REST API (FastAPI)</div>
-      </div>
-      <div class="roadmap-step">
-        <div style="font-weight: 700;">PHASE 5</div>
-        <div style="font-size: 0.7rem; margin-top: 0.2rem;">PostgreSQL Relational DB</div>
-      </div>
-      <div class="roadmap-step">
-        <div style="font-weight: 700;">PHASE 6 - 7</div>
-        <div style="font-size: 0.7rem; margin-top: 0.2rem;">Authentication & RBAC</div>
-      </div>
-      <div class="roadmap-step">
-        <div style="font-weight: 700;">PHASE 8 - 10</div>
-        <div style="font-size: 0.7rem; margin-top: 0.2rem;">Docker, Nginx & Deployment</div>
+        <div class="tech-card">
+          <i class="fa-solid fa-display"></i>
+          <h3>Responsive UI</h3>
+          <p>Desain ini dibuat agar tampil dengan baik di desktop maupun ponsel, sehingga tetap nyaman digunakan dalam berbagai ukuran layar.</p>
+        </div>
       </div>
     </div>
   </section>
 
-  <!-- ============================================================
-       H. DETAIL DOSIR MODAL
-       ============================================================ -->
-  <div class="modal-overlay" id="detailModalOverlay">
-    <div class="modal-container">
-      <div class="modal-header">
-        <div>
-          <span class="font-mono text-cyan" style="font-size: 0.72rem; font-weight: 700;">// PERSONNEL DOSSIER PROFILE</span>
-          <h3 class="font-display" id="modalPersonnelTitle" style="font-size: 1.3rem; margin-top: 0.15rem;">DETAIL PROFIL PRAJURIT</h3>
-        </div>
-        <button class="modal-close-btn" id="modalCloseBtn" title="Tutup Modal (ESC)">
-          <i class="fa-solid fa-xmark"></i>
-        </button>
-      </div>
-
-      <div class="modal-body">
-        <div>
-          <div class="modal-large-photo" id="modalPhotoWrap">
-            <!-- Photo or placeholder -->
-          </div>
-          <div class="font-mono text-muted" style="font-size: 0.7rem; text-align: center; margin-top: 0.5rem;">
-            ID IDENTIFIKASI: <span id="modalIdTag" class="text-cyan">#00</span>
-          </div>
-        </div>
-
-        <div class="modal-info-list">
-          <div class="modal-info-item">
-            <div class="label">NAMA LENGKAP</div>
-            <div class="val font-display" id="modalNama">-</div>
-          </div>
-          <div class="modal-info-item">
-            <div class="label">PANGKAT / NRP</div>
-            <div class="val font-mono" id="modalPangkatNrp">-</div>
-          </div>
-          <div class="modal-info-item">
-            <div class="label">JABATAN DINAS</div>
-            <div class="val" id="modalJabatan">-</div>
-          </div>
-          <div class="modal-info-item">
-            <div class="label">SATUAN KOMANDO</div>
-            <div class="val text-emerald" id="modalSatuan">-</div>
-          </div>
-          <div class="modal-info-item">
-            <div class="label">STATUS PERKAWINAN</div>
-            <div class="val" id="modalStatus">-</div>
-          </div>
-          <div class="modal-info-item">
-            <div class="label">ALAMAT KESATUAN</div>
-            <div class="val font-mono" style="font-size: 0.85rem;" id="modalAlamat">-</div>
-          </div>
-          <div class="modal-info-item">
-            <div class="label">KOORDINAT TAKTIS</div>
-            <div class="val font-mono" style="font-size: 0.82rem;" id="modalCoords">null, null (NOT SET)</div>
-          </div>
-        </div>
-      </div>
-
-      <div class="modal-actions">
-        <button class="tactical-btn-sm" id="modalCopyNrpBtn"><i class="fa-regular fa-copy"></i> COPY NRP</button>
-        <button class="tactical-btn-sm" id="modalCopySatuanBtn"><i class="fa-regular fa-copy"></i> COPY SATUAN</button>
-        <button class="tactical-btn-sm" id="modalCopyJabatanBtn"><i class="fa-regular fa-copy"></i> COPY JABATAN</button>
-        <button class="tactical-btn-sm" id="modalFlyToMapBtn"><i class="fa-solid fa-crosshairs text-cyan"></i> LIHAT LOKASI</button>
-        <button class="tactical-btn-sm" onclick="window.print()"><i class="fa-solid fa-print"></i> PRINT PROFILE</button>
-        <button class="tactical-btn-sm" id="modalBottomCloseBtn" style="border-color: var(--accent-red); color: var(--accent-red);">TUTUP</button>
-      </div>
-    </div>
-  </div>
-
-  <!-- Toast Notification Container -->
-  <div id="toastContainer"></div>
-
-  <!-- ============================================================
-       I. TACTICAL FOOTER
-       ============================================================ -->
-  <footer class="tactical-footer">
-    <div class="footer-content">
-      <div>
-        <div class="font-display" style="color: var(--text-primary); font-size: 1.1rem; font-weight: 700;">SINDIKAT 2</div>
-        <div style="font-size: 0.72rem; margin-top: 0.2rem;">PERSONNEL INTELLIGENCE PROFILE // SECURE PERSONNEL INFORMATION SYSTEM</div>
-      </div>
-      <div style="text-align: right;">
-        <div style="color: var(--accent-emerald); font-weight: 600;">● SYSTEM ONLINE</div>
-        <div style="font-size: 0.7rem; margin-top: 0.2rem;">&copy; 2026 SINDIKAT 2. INTERNAL PERSONNEL INFORMATION // AUTHORIZED ACCESS ONLY</div>
-      </div>
-    </div>
-  </footer>
-
-  <!-- ============================================================
-       J. COMPLETE APPLICATION JAVASCRIPT LOGIC
-       ============================================================ -->
+  <!-- JAVASCRIPT APPLICATION LOGIC -->
   <script>
-    /* ------------------------------------------------------------
-       1. DATA ANGGOTA SINDIKAT 2 (PERSISTENT CLIENT-SIDE DATA)
-       ------------------------------------------------------------ */
-    const personnelData = [
-      {
-        id: 1,
-        nama: "Wirangga Agum Efendi",
-        pangkat: "Kapten Arh",
-        nrp: "11200016961096",
-        jabatan: "Pasiintel",
-        satuan: "Yonarhanud 11/WBY",
-        status: "Belum Menikah",
-        alamat: "Asmil Yonarhanud 11/WBY Kota Binjai",
-        foto: null,
-        latitude: null,
-        longitude: null
-      },
-      {
-        id: 2,
-        nama: "Didi Suseno",
-        pangkat: "Lettu Laut (P)",
-        nrp: "24144/P",
-        jabatan: "Paurpultaops Pusdalops",
-        satuan: "Pushidrosal",
-        status: "K-3",
-        alamat: "Desa Banjaran, Kab. Brebes, Jawa Tengah",
-        foto: null,
-        latitude: null,
-        longitude: null
-      },
-      {
-        id: 3,
-        nama: "Edi Hartanto",
-        pangkat: "Letda Inf",
-        nrp: "21070542860386",
-        jabatan: "Dantim 3 BKI A",
-        satuan: "Deninteldam XIII/Merdeka - Manado",
-        status: "K1",
-        alamat: "Asrama Pakowa 13 Manado",
-        foto: null,
-        latitude: null,
-        longitude: null
-      },
-      {
-        id: 4,
-        nama: "Doni Risa T.",
-        pangkat: "Letda Laut (T)",
-        nrp: "27001/P",
-        jabatan: "Kadiv MPK SURA-802",
-        satuan: "Satuan Kapal Patroli",
-        status: "Belum diisi",
-        alamat: "Sepenggal surga yang jatuh ke bumi (Sorong)",
-        foto: null,
-        latitude: null,
-        longitude: null
-      },
-      {
-        id: 5,
-        nama: "Abdul Ganif Rasit",
-        pangkat: "Letda Arh",
-        nrp: "21110101340792",
-        jabatan: "Paurnik 2 Bengharsistarudal",
-        satuan: "Bengpusarhanud Pussenarhanud",
+    /* ============================================================
+       DATA STORE PERSONNEL DIPERBAHARUI Sesuai PERMINTAAN
+       ============================================================ */
+    const localPhotoFiles = [
+      "abdul_ganif.jpeg",
+      "didi_suseno.jpeg",
+      "doni_risa.jpeg",
+      "edi_hartanto.jpeg",
+      "ruli_fajar.jpeg",
+      "wirangga.jpeg"
+    ];
+
+    function normalizeName(value) {
+      return String(value || '')
+        .toLowerCase()
+        .replace(/[^a-z0-9]+/g, ' ')
+        .trim()
+        .replace(/\s+/g, ' ');
+    }
+
+    function resolvePhoto(name) {
+      const target = normalizeName(name);
+      const aliases = {
+        'abdul ganif rasit': 'abdul_ganif.jpeg',
+        'edi hartanto': 'edi_hartanto.jpeg',
+        'doni risa t': 'doni_risa.jpeg',
+        'wirangga agum efendi': 'wirangga.jpeg',
+        'didi suseno': 'didi_suseno.jpeg',
+        'ruli fajar': 'ruli_fajar.jpeg'
+      };
+
+      const exact = Object.keys(aliases).find(key => target.includes(key) || key.includes(target));
+      if (exact) return aliases[exact];
+
+      const fallback = localPhotoFiles.find(file => {
+        const fileToken = file.replace(/\.[^/.]+$/, '').toLowerCase();
+        const fileParts = fileToken.split('_');
+        return fileParts.some(part => target.includes(part));
+      });
+
+      return fallback || 'https://via.placeholder.com/400x300?text=No+Image';
+    }
+
+    const rawPersonnelData = [
+      { 
+        id: 1, 
+        name: "Abdul Ganif Rasit", 
+        rank: "Letda Arh", 
+        nrp: "21110101340792", 
+        position: "Paurnik 2 Bengharsistarudal", 
+        unit: "Bengpusarhanud Pussenarhanud", 
         status: "K-1",
-        alamat: "Asrama Bengpusarhanud Malang",
-        foto: null,
-        latitude: null,
-        longitude: null
+        address: "Asrama Bengpusarhanud Malang",
+        lat: -7.9666, 
+        lng: 112.6326, 
+        locName: "Malang",
+        photo: resolvePhoto("Abdul Ganif Rasit")
       },
-      {
-        id: 6,
-        nama: "Ruli Fajar Gumilar",
-        pangkat: "Letda Inf",
-        nrp: "21110003660790",
-        jabatan: "Danton II Ton II Kipan C",
-        satuan: "Yonif TP 807/MNM",
+      { 
+        id: 2, 
+        name: "Edi Hartanto", 
+        rank: "Letda Inf", 
+        nrp: "21070542860386", 
+        position: "Dantim 3 BKI A", 
+        unit: "Deninteldam XIII/Merdeka - Manado", 
+        status: "K1",
+        address: "Asrama Pakowa 13 Manado",
+        lat: 1.4748, 
+        lng: 124.8428, 
+        locName: "Manado",
+        photo: resolvePhoto("Edi Hartanto")
+      },
+      { 
+        id: 3, 
+        name: "Doni Risa T.", 
+        rank: "Letda laut (T)", 
+        nrp: "27001/P", 
+        position: "Kadiv MPK KRI SURA-802", 
+        unit: "Satuan Kapal Patroli", 
+        status: "-",
+        address: "Sepenggal surga yang jatuh kebumi (Sorong)",
+        lat: -0.8762, 
+        lng: 131.2558, 
+        locName: "Sorong",
+        photo: resolvePhoto("Doni Risa T.")
+      },
+      { 
+        id: 4, 
+        name: "Wirangga Agum Efendi", 
+        rank: "Kapten Arh", 
+        nrp: "11200016961096", 
+        position: "Pasiintel", 
+        unit: "Yonarhanud 11/WBY", 
+        status: "Belum Menikah",
+        address: "Asmil Yonarhanud 11/ WBY Kota Binjai",
+        lat: 3.6001, 
+        lng: 98.4854, 
+        locName: "Binjai",
+        photo: resolvePhoto("Wirangga Agum Efendi")
+      },
+      { 
+        id: 5, 
+        name: "Didi Suseno", 
+        rank: "Lettu Laut (P)", 
+        nrp: "24144/P", 
+        position: "Paurpultaops Pusdalops", 
+        unit: "Pushidrosal", 
         status: "K-3",
-        alamat: "Sorong Selatan, Papua Barat Daya",
-        foto: null,
-        latitude: null,
-        longitude: null
+        address: "Desa Banjaran, Kab. Brebes, Jawa Tengah",
+        lat: -6.9731, 
+        lng: 108.9711, 
+        locName: "Brebes",
+        photo: resolvePhoto("Didi Suseno")
       }
     ];
 
-    // Hierarki Pangkat Perwira
-    const rankOrder = {
-      "Kapten": 1,
-      "Lettu": 2,
-      "Letda": 3
-    };
-
-    /* ------------------------------------------------------------
-       2. CONTROLLER & STATE MANAGEMENT
-       ------------------------------------------------------------ */
-    class SindikatApp {
-      constructor() {
-        this.personnel = personnelData;
-        this.isMasked = false; // Default: SHOW DATA
-        this.currentActiveModalId = null;
-        this.filterState = {
-          search: '',
-          pangkat: 'all',
-          satuan: 'all',
-          status: 'all',
-          wilayah: 'all',
-          sort: 'pangkat_hierarki'
-        };
-        this.map = null;
-        this.mapMarkers = new Map();
-        this.tileLayer = null;
-        this.activeTileKey = 'dark';
-      }
-
-      init() {
-        this.runBootSequence();
-        this.initTheme();
-        this.initRadar();
-        this.populateDropdowns();
-        this.renderPersonnelCards();
-        this.animateCounters();
-        this.setupEventListeners();
-        this.initMap();
-      }
-
-      // Boot Sequence
-      runBootSequence() {
-        const bootScreen = document.getElementById('bootScreen');
-        const bootFill = document.getElementById('bootFill');
-        const bootPercent = document.getElementById('bootPercent');
-        const bootLogContainer = document.getElementById('bootLogContainer');
-
-        const logs = [
-          "INITIALIZING SYSTEM...",
-          "LOADING PERSONNEL DATABASE (SINDIKAT 2)...",
-          "LOADING LEAFLET GEOSPATIAL MAP ENGINE...",
-          "VERIFYING DATA INTEGRITY & ACCESS CONTROL...",
-          "SYSTEM ONLINE // DEFCON 4"
-        ];
-
-        let progress = 0;
-        let step = 0;
-
-        const interval = setInterval(() => {
-          progress += Math.floor(Math.random() * 14) + 10;
-          if (progress > 100) progress = 100;
-
-          if (bootFill) bootFill.style.width = `${progress}%`;
-          if (bootPercent) bootPercent.textContent = `${progress}%`;
-
-          if (progress >= (step + 1) * 20 && step < logs.length) {
-            const div = document.createElement('div');
-            div.innerHTML = `<span style="color:var(--accent-emerald); margin-right:4px;">&#9658;</span> ${logs[step]}`;
-            bootLogContainer.appendChild(div);
-            step++;
-          }
-
-          if (progress >= 100) {
-            clearInterval(interval);
-            setTimeout(() => {
-              bootScreen.classList.add('hide-boot');
-              this.showToast("SYSTEM ONLINE // Database Personel Siap", "success");
-            }, 450);
-          }
-        }, 75);
-      }
-
-      // Radar Canvas Animation
-      initRadar() {
-        const canvas = document.getElementById('radarCanvas');
-        if (!canvas) return;
-        const ctx = canvas.getContext('2d');
-        let angle = 0;
-
-        const resize = () => {
-          canvas.width = canvas.parentElement.offsetWidth;
-          canvas.height = canvas.parentElement.offsetHeight;
-        };
-        resize();
-        window.addEventListener('resize', resize);
-
-        const draw = () => {
-          ctx.clearRect(0, 0, canvas.width, canvas.height);
-          const cx = canvas.width / 2;
-          const cy = canvas.height / 2;
-          const radius = Math.min(cx, cy) * 0.9;
-
-          // Circles
-          ctx.strokeStyle = 'rgba(0, 242, 254, 0.15)';
-          ctx.lineWidth = 1;
-          for (let r = radius / 4; r <= radius; r += radius / 4) {
-            ctx.beginPath();
-            ctx.arc(cx, cy, r, 0, Math.PI * 2);
-            ctx.stroke();
-          }
-
-          // Crosshairs
-          ctx.beginPath();
-          ctx.moveTo(cx - radius, cy);
-          ctx.lineTo(cx + radius, cy);
-          ctx.moveTo(cx, cy - radius);
-          ctx.lineTo(cx, cy + radius);
-          ctx.stroke();
-
-          // Sweep gradient
-          const sweep = 0.5;
-          const grad = ctx.createRadialGradient(cx, cy, 0, cx, cy, radius);
-          grad.addColorStop(0, 'rgba(0, 242, 254, 0.35)');
-          grad.addColorStop(1, 'rgba(0, 242, 254, 0)');
-
-          ctx.save();
-          ctx.beginPath();
-          ctx.moveTo(cx, cy);
-          ctx.arc(cx, cy, radius, angle, angle + sweep);
-          ctx.closePath();
-          ctx.fillStyle = grad;
-          ctx.fill();
-          ctx.restore();
-
-          angle = (angle + 0.018) % (Math.PI * 2);
-          requestAnimationFrame(draw);
-        };
-        requestAnimationFrame(draw);
-      }
-
-      // Theme toggle (LocalStorage)
-      initTheme() {
-        const saved = localStorage.getItem('sindikat2_theme') || 'dark';
-        if (saved === 'light') {
-          document.body.classList.add('light-mode');
-        } else {
-          document.body.classList.remove('light-mode');
-        }
-      }
-
-      toggleTheme() {
-        const isLight = document.body.classList.toggle('light-mode');
-        localStorage.setItem('sindikat2_theme', isLight ? 'light' : 'dark');
-        this.showToast(isLight ? "Light Mode Diaktifkan" : "Dark Tactical Mode Diaktifkan");
-      }
-
-      // Fullscreen API
-      toggleFullscreen() {
-        if (!document.fullscreenElement) {
-          document.documentElement.requestFullscreen().catch(() => {});
-          this.showToast("Layar Penuh (Fullscreen) Diaktifkan");
-        } else {
-          document.exitFullscreen().catch(() => {});
-          this.showToast("Keluar dari Layar Penuh");
-        }
-      }
-
-      // Masking logic
-      maskNrp(nrp) {
-        if (!this.isMasked || !nrp) return nrp;
-        if (nrp.length <= 8) return '****' + nrp.slice(-4);
-        return nrp.slice(0, 4) + '********' + nrp.slice(-4);
-      }
-
-      maskAlamat(alamat) {
-        if (!this.isMasked || !alamat) return alamat;
-        return '[ADDRESS PROTECTED]';
-      }
-
-      toggleMasking() {
-        this.isMasked = !this.isMasked;
-        const btnText = document.getElementById('maskBtnText');
-        if (btnText) {
-          btnText.textContent = this.isMasked ? 'UNMASK SENSITIVE DATA' : 'MASK SENSITIVE DATA';
-        }
-        this.renderPersonnelCards();
-        if (this.currentActiveModalId) {
-          this.openModal(this.currentActiveModalId);
-        }
-        this.showToast(this.isMasked ? "Data Sensitif Disamarkan (NRP & Alamat)" : "Data Sensitif Ditampilkan Penuh");
-      }
-
-      // Helper Wilayah
-      extractWilayah(alamat) {
-        if (!alamat) return 'Lainnya';
-        const a = alamat.toLowerCase();
-        if (a.includes('binjai') || a.includes('sumatera')) return 'Sumatera';
-        if (a.includes('brebes') || a.includes('jawa') || a.includes('malang')) return 'Jawa';
-        if (a.includes('manado') || a.includes('sulawesi')) return 'Sulawesi';
-        if (a.includes('sorong') || a.includes('papua')) return 'Papua';
-        return 'Lainnya';
-      }
-
-      // Populate Filter Dropdowns
-      populateDropdowns() {
-        const selectSatuan = document.getElementById('filterSatuan');
-        const selectStatus = document.getElementById('filterStatus');
-        const selectWilayah = document.getElementById('filterWilayah');
-
-        const satuans = Array.from(new Set(this.personnel.map(p => p.satuan).filter(Boolean)));
-        const statuses = Array.from(new Set(this.personnel.map(p => p.status).filter(Boolean)));
-        const wilayahs = Array.from(new Set(this.personnel.map(p => this.extractWilayah(p.alamat))));
-
-        if (selectSatuan) {
-          selectSatuan.innerHTML = '<option value="all">Semua Satuan</option>' + 
-            satuans.map(s => `<option value="${s}">${s}</option>`).join('');
-        }
-        if (selectStatus) {
-          selectStatus.innerHTML = '<option value="all">Semua Status</option>' + 
-            statuses.map(st => `<option value="${st}">${st}</option>`).join('');
-        }
-        if (selectWilayah) {
-          selectWilayah.innerHTML = '<option value="all">Semua Wilayah</option>' + 
-            wilayahs.map(w => `<option value="${w}">${w}</option>`).join('');
-        }
-      }
-
-      // Filter & Sorting
-      getFilteredData() {
-        let list = [...this.personnel];
-
-        // Search text
-        if (this.filterState.search) {
-          const q = this.filterState.search.toLowerCase().trim();
-          list = list.filter(p => 
-            (p.nama && p.nama.toLowerCase().includes(q)) ||
-            (p.nrp && p.nrp.toLowerCase().includes(q)) ||
-            (p.pangkat && p.pangkat.toLowerCase().includes(q)) ||
-            (p.jabatan && p.jabatan.toLowerCase().includes(q)) ||
-            (p.satuan && p.satuan.toLowerCase().includes(q)) ||
-            (p.status && p.status.toLowerCase().includes(q)) ||
-            (p.alamat && p.alamat.toLowerCase().includes(q))
-          );
-        }
-
-        // Pangkat
-        if (this.filterState.pangkat !== 'all') {
-          list = list.filter(p => p.pangkat.toLowerCase().startsWith(this.filterState.pangkat.toLowerCase()));
-        }
-
-        // Satuan
-        if (this.filterState.satuan !== 'all') {
-          list = list.filter(p => p.satuan === this.filterState.satuan);
-        }
-
-        // Status
-        if (this.filterState.status !== 'all') {
-          list = list.filter(p => p.status === this.filterState.status);
-        }
-
-        // Wilayah
-        if (this.filterState.wilayah !== 'all') {
-          list = list.filter(p => this.extractWilayah(p.alamat) === this.filterState.wilayah);
-        }
-
-        // Sorting Hierarki: Kapten -> Lettu -> Letda, jika sama nama A-Z
-        list.sort((a, b) => {
-          const getRankLevel = (str) => {
-            if (!str) return 99;
-            const prefix = str.split(' ')[0];
-            return rankOrder[prefix] || 99;
-          };
-
-          switch (this.filterState.sort) {
-            case 'pangkat_hierarki': {
-              const diff = getRankLevel(a.pangkat) - getRankLevel(b.pangkat);
-              return diff !== 0 ? diff : a.nama.localeCompare(b.nama);
-            }
-            case 'nama_asc':
-              return a.nama.localeCompare(b.nama);
-            case 'nama_desc':
-              return b.nama.localeCompare(a.nama);
-            case 'satuan':
-              return a.satuan.localeCompare(b.satuan);
-            case 'jabatan':
-              return a.jabatan.localeCompare(b.jabatan);
-            default:
-              return a.id - b.id;
-          }
-        });
-
-        return list;
-      }
-
-      // Render Cards
-      renderPersonnelCards() {
-        const container = document.getElementById('personnelCardsContainer');
-        if (!container) return;
-
-        const data = this.getFilteredData();
-
-        if (data.length === 0) {
-          container.innerHTML = `
-            <div class="empty-search-state">
-              <i class="fa-solid fa-user-slash" style="font-size: 2rem; margin-bottom: 0.8rem; color: var(--accent-cyan);"></i>
-              <div>DATA PERSONEL TIDAK DITEMUKAN</div>
-              <div style="font-size: 0.75rem; margin-top: 0.3rem;">Silakan periksa kata kunci pencarian atau reset filter.</div>
-            </div>
-          `;
-          return;
-        }
-
-        container.innerHTML = data.map(p => {
-          const displayNrp = this.maskNrp(p.nrp);
-          const displayAlamat = this.maskAlamat(p.alamat);
-          const hasPhoto = !!p.foto;
-
-          const photoHtml = hasPhoto
-            ? `<img src="${p.foto}" alt="${p.nama}" class="card-photo-img" />`
-            : `
-              <div class="photo-placeholder">
-                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
-                  <path stroke-linecap="round" stroke-linejoin="round" d="M15.75 6a3.75 3.75 0 11-7.5 0 3.75 3.75 0 017.5 0zM4.501 20.118a7.5 7.5 0 0114.998 0A17.933 17.933 0 0112 21.75c-2.676 0-5.216-.584-7.499-1.632z" />
-                </svg>
-                <span>PERSONNEL PHOTO<br>NOT AVAILABLE</span>
-              </div>
-            `;
-
-          return `
-            <div class="personnel-card" id="card-${p.id}">
-              <div>
-                <div class="card-photo-container">
-                  ${photoHtml}
-                  <div class="card-status-badge">
-                    <span class="pulse-dot"></span>
-                    <span>AKTIF</span>
-                  </div>
-                </div>
-
-                <div style="display: flex; align-items: center; justify-content: space-between;">
-                  <span class="rank-tag">${p.pangkat}</span>
-                  <span class="font-mono text-muted" style="font-size: 0.7rem;">ID #${p.id < 10 ? '0' + p.id : p.id}</span>
-                </div>
-
-                <h3 class="card-person-name" title="${p.nama}">${p.nama}</h3>
-
-                <div class="card-data-row">
-                  <span class="card-data-label">NRP:</span>
-                  <span class="card-data-val text-cyan">${displayNrp}</span>
-                </div>
-                <div class="card-data-row">
-                  <span class="card-data-label">JABATAN:</span>
-                  <span class="card-data-val">${p.jabatan}</span>
-                </div>
-                <div class="card-data-row">
-                  <span class="card-data-label">SATUAN:</span>
-                  <span class="card-data-val text-emerald">${p.satuan}</span>
-                </div>
-                <div class="card-data-row">
-                  <span class="card-data-label">STATUS:</span>
-                  <span class="card-data-val">${p.status || '-'}</span>
-                </div>
-                <div class="card-data-row">
-                  <span class="card-data-label">ALAMAT:</span>
-                  <span class="card-data-val" style="font-size: 0.72rem;">${displayAlamat}</span>
-                </div>
-              </div>
-
-              <div>
-                <div class="card-btn-grid">
-                  <button class="tactical-btn-sm" onclick="app.openModal(${p.id})" style="justify-content: center; font-weight: 600;">
-                    <i class="fa-regular fa-id-card text-cyan"></i> DETAIL
-                  </button>
-                  <button class="tactical-btn-sm" onclick="app.handleCardLocationClick(${p.id})" style="justify-content: center;">
-                    <i class="fa-solid fa-location-dot text-emerald"></i> LOKASI
-                  </button>
-                </div>
-
-                <!-- Input Foto via FileReader API -->
-                <label class="photo-upload-label" for="upload-photo-${p.id}" title="Pilih foto dari komputer">
-                  <i class="fa-solid fa-camera"></i>
-                  <span>PILIH FOTO</span>
-                  <input 
-                    type="file" 
-                    id="upload-photo-${p.id}" 
-                    accept="image/*" 
-                    style="display: none;" 
-                    onchange="app.handlePhotoUpload(${p.id}, this)"
-                  />
-                </label>
-              </div>
-            </div>
-          `;
-        }).join('');
-      }
-
-      // Handle Photo Selection via FileReader API
-      handlePhotoUpload(id, inputElement) {
-        if (!inputElement.files || !inputElement.files[0]) return;
-        const file = inputElement.files[0];
-
-        const reader = new FileReader();
-        reader.onload = (e) => {
-          const base64Data = e.target.result;
-          const targetPerson = this.personnel.find(p => p.id === Number(id));
-          if (targetPerson) {
-            targetPerson.foto = base64Data;
-            this.renderPersonnelCards();
-            if (this.currentActiveModalId === Number(id)) {
-              this.openModal(id);
-            }
-            this.showToast(`✓ Foto untuk ${targetPerson.nama} berhasil dimuat ke memori.`);
-          }
-        };
-        reader.readAsDataURL(file);
-      }
-
-      // Detail Modal
-      openModal(id) {
-        const p = this.personnel.find(item => item.id === Number(id));
-        if (!p) return;
-
-        this.currentActiveModalId = p.id;
-        const overlay = document.getElementById('detailModalOverlay');
-        const photoWrap = document.getElementById('modalPhotoWrap');
-
-        document.getElementById('modalPersonnelTitle').textContent = p.nama;
-        document.getElementById('modalIdTag').textContent = `#${p.id < 10 ? '0' + p.id : p.id}`;
-        document.getElementById('modalNama').textContent = p.nama;
-        document.getElementById('modalPangkatNrp').textContent = `${p.pangkat} / NRP: ${this.maskNrp(p.nrp)}`;
-        document.getElementById('modalJabatan').textContent = p.jabatan;
-        document.getElementById('modalSatuan').textContent = p.satuan;
-        document.getElementById('modalStatus').textContent = p.status || '-';
-        document.getElementById('modalAlamat').textContent = this.maskAlamat(p.alamat);
-        document.getElementById('modalCoords').textContent = (p.latitude !== null && p.longitude !== null)
-          ? `${p.latitude.toFixed(4)}, ${p.longitude.toFixed(4)}`
-          : 'null, null (NOT SET)';
-
-        if (p.foto) {
-          photoWrap.innerHTML = `<img src="${p.foto}" alt="${p.nama}" />`;
-        } else {
-          photoWrap.innerHTML = `
-            <div class="photo-placeholder">
-              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
-                <path stroke-linecap="round" stroke-linejoin="round" d="M15.75 6a3.75 3.75 0 11-7.5 0 3.75 3.75 0 017.5 0zM4.501 20.118a7.5 7.5 0 0114.998 0A17.933 17.933 0 0112 21.75c-2.676 0-5.216-.584-7.499-1.632z" />
-              </svg>
-              <span>PERSONNEL PHOTO<br>NOT AVAILABLE</span>
-            </div>
-          `;
-        }
-
-        // Copy Handlers
-        document.getElementById('modalCopyNrpBtn').onclick = () => this.copyToClipboard(p.nrp, 'NRP');
-        document.getElementById('modalCopySatuanBtn').onclick = () => this.copyToClipboard(p.satuan, 'Satuan');
-        document.getElementById('modalCopyJabatanBtn').onclick = () => this.copyToClipboard(p.jabatan, 'Jabatan');
-
-        document.getElementById('modalFlyToMapBtn').onclick = () => {
-          this.closeModal();
-          this.handleCardLocationClick(p.id);
-        };
-
-        overlay.classList.add('open');
-      }
-
-      closeModal() {
-        const overlay = document.getElementById('detailModalOverlay');
-        overlay.classList.remove('open');
-        this.currentActiveModalId = null;
-      }
-
-      // Clipboard API
-      copyToClipboard(text, label) {
-        if (!text) return;
-        navigator.clipboard.writeText(text).then(() => {
-          this.showToast(`✓ DATA BERHASIL DISALIN: ${label}`);
-        }).catch(() => {
-          this.showToast("Gagal menyalin data.", "warning");
-        });
-      }
-
-      // Location Click Handler
-      handleCardLocationClick(id) {
-        const p = this.personnel.find(item => item.id === Number(id));
-        if (!p) return;
-
-        const mapSec = document.getElementById('mapSection');
-        if (mapSec) {
-          mapSec.scrollIntoView({ behavior: 'smooth' });
-        }
-
-        if (p.latitude !== null && p.longitude !== null) {
-          if (this.map) {
-            this.map.flyTo([p.latitude, p.longitude], 13, { duration: 1.5 });
-            const marker = this.mapMarkers.get(p.id);
-            if (marker) marker.openPopup();
-          }
-        } else {
-          this.showToast("Koordinat lokasi belum tersedia.", "warning");
-        }
-      }
-
-      // Leaflet Map Initialization
-      initMap() {
-        const mapEl = document.getElementById('unitLocationMap');
-        if (!mapEl) return;
-
-        // Koordinat Nusantara (Indonesia)
-        this.map = L.map('unitLocationMap', {
-          center: [-1.5, 118.0],
-          zoom: 4.5,
-          zoomControl: true,
-          attributionControl: true
-        });
-
-        this.setMapLayer('dark');
-        this.renderMapMarkers();
-      }
-
-      setMapLayer(layerKey) {
-        if (!this.map) return;
-        if (this.tileLayer) {
-          this.map.removeLayer(this.tileLayer);
-        }
-
-        this.activeTileKey = layerKey;
-        const tiles = {
-          dark: 'https://{s}.basemaps.cartocdn.com/dark_all/{z}/{x}/{y}{r}.png',
-          standard: 'https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png'
-        };
-
-        this.tileLayer = L.tileLayer(tiles[layerKey] || tiles.dark, {
-          maxZoom: 18,
-          attribution: '&copy; OpenStreetMap &copy; CARTO'
-        }).addTo(this.map);
-      }
-
-      renderMapMarkers() {
-        if (!this.map) return;
-        this.mapMarkers.clear();
-
-        let validCount = 0;
-        this.personnel.forEach(p => {
-          if (p.latitude !== null && p.longitude !== null && !isNaN(p.latitude) && !isNaN(p.longitude)) {
-            validCount++;
-            const customIcon = L.divIcon({
-              className: 'custom-tactical-pin',
-              html: `<div class="pin-wave"></div><div class="pin-core"></div>`,
-              iconSize: [20, 20],
-              iconAnchor: [10, 10]
-            });
-
-            const marker = L.marker([p.latitude, p.longitude], { icon: customIcon });
-            marker.bindPopup(`
-              <div style="font-family:var(--font-mono); font-size:0.75rem; padding:4px;">
-                <div style="color:var(--accent-cyan); font-weight:700; font-size:0.68rem;">// POSISI DISPATCH //</div>
-                <div style="font-weight:700; font-size:0.95rem; margin:2px 0;">${p.nama}</div>
-                <div style="color:var(--accent-emerald); font-size:0.75rem;">${p.pangkat} &bull; ${p.nrp}</div>
-                <div style="margin-top:4px;">Satuan: <strong>${p.satuan}</strong></div>
-                <div>Jabatan: ${p.jabatan}</div>
-                <button onclick="app.openModal(${p.id})" style="margin-top:6px; width:100%; padding:4px; background:rgba(0,242,254,0.15); border:1px solid var(--accent-cyan); color:var(--accent-cyan); border-radius:4px; cursor:pointer; font-weight:700;">LIHAT PROFIL</button>
-              </div>
-            `);
-
-            marker.on('click', () => {
-              this.highlightCard(p.id);
-            });
-
-            marker.addTo(this.map);
-            this.mapMarkers.set(p.id, marker);
-          }
-        });
-
-        const alertBanner = document.getElementById('mapCoordsAlert');
-        if (alertBanner) {
-          alertBanner.style.display = (validCount === 0) ? 'flex' : 'none';
-        }
-      }
-
-      highlightCard(id) {
-        const card = document.getElementById(`card-${id}`);
-        if (card) {
-          card.scrollIntoView({ behavior: 'smooth', block: 'center' });
-          card.classList.add('card-pulse-highlight');
-          setTimeout(() => {
-            card.classList.remove('card-pulse-highlight');
-          }, 3000);
-        }
-      }
-
-      fitAllMapLocations() {
-        if (!this.map) return;
-        const validCoords = this.personnel
-          .filter(p => p.latitude !== null && p.longitude !== null)
-          .map(p => [p.latitude, p.longitude]);
-
-        if (validCoords.length > 0) {
-          const bounds = L.latLngBounds(validCoords);
-          this.map.fitBounds(bounds, { padding: [50, 50] });
-        } else {
-          this.showToast("COORDINATE NOT AVAILABLE (Seluruh koordinat masih bernilai null)", "warning");
-        }
-      }
-
-      // Counters Animation
-      animateCounters() {
-        const totalEl = document.getElementById('counterTotal');
-        const perwiraEl = document.getElementById('counterPerwira');
-        const satuanEl = document.getElementById('counterSatuan');
-
-        const total = this.personnel.length;
-        const perwira = this.personnel.filter(p => p.pangkat.includes('Kapten') || p.pangkat.includes('Lettu') || p.pangkat.includes('Letda')).length;
-        const satuans = new Set(this.personnel.map(p => p.satuan)).size;
-
-        const countUp = (el, target) => {
-          if (!el) return;
-          let current = 0;
-          const step = Math.max(1, Math.floor(target / 12));
-          const timer = setInterval(() => {
-            current += step;
-            if (current >= target) {
-              el.textContent = target < 10 ? `0${target}` : target;
-              clearInterval(timer);
-            } else {
-              el.textContent = current < 10 ? `0${current}` : current;
-            }
-          }, 60);
-        };
-
-        countUp(totalEl, total);
-        countUp(perwiraEl, perwira);
-        countUp(satuanEl, satuans);
-      }
-
-      // Toast Feedback
-      showToast(msg, type = "info") {
-        const container = document.getElementById('toastContainer');
-        if (!container) return;
-
-        const toast = document.createElement('div');
-        toast.className = 'toast-item';
-        toast.innerHTML = `<i class="fa-solid fa-terminal text-cyan"></i><span>${msg}</span>`;
-        container.appendChild(toast);
-
-        setTimeout(() => {
-          toast.style.opacity = '0';
-          toast.style.transform = 'translateX(100%)';
-          toast.style.transition = 'all 0.3s ease';
-          setTimeout(() => toast.remove(), 300);
-        }, 3600);
-      }
-
-      // Event Listeners
-      setupEventListeners() {
-        const searchInput = document.getElementById('commandSearchInput');
-
-        // Real-time Search with Debounce
-        let timer = null;
-        if (searchInput) {
-          searchInput.addEventListener('input', (e) => {
-            clearTimeout(timer);
-            timer = setTimeout(() => {
-              this.filterState.search = e.target.value;
-              this.renderPersonnelCards();
-            }, 180);
-          });
-        }
-
-        // Ctrl + K Shortcut
-        window.addEventListener('keydown', (e) => {
-          if ((e.ctrlKey || e.metaKey) && e.key.toLowerCase() === 'k') {
-            e.preventDefault();
-            searchInput?.focus();
-            searchInput?.scrollIntoView({ behavior: 'smooth', block: 'center' });
-          }
-          if (e.key === 'Escape') {
-            this.closeModal();
-          }
-        });
-
-        // Nav Search button
-        document.getElementById('btnNavSearch')?.addEventListener('click', () => {
-          searchInput?.focus();
-          searchInput?.scrollIntoView({ behavior: 'smooth', block: 'center' });
-        });
-
-        // Filter Handlers
-        document.getElementById('filterPangkat')?.addEventListener('change', (e) => {
-          this.filterState.pangkat = e.target.value;
-          this.renderPersonnelCards();
-        });
-        document.getElementById('filterSatuan')?.addEventListener('change', (e) => {
-          this.filterState.satuan = e.target.value;
-          this.renderPersonnelCards();
-        });
-        document.getElementById('filterStatus')?.addEventListener('change', (e) => {
-          this.filterState.status = e.target.value;
-          this.renderPersonnelCards();
-        });
-        document.getElementById('filterWilayah')?.addEventListener('change', (e) => {
-          this.filterState.wilayah = e.target.value;
-          this.renderPersonnelCards();
-        });
-        document.getElementById('sortSelection')?.addEventListener('change', (e) => {
-          this.filterState.sort = e.target.value;
-          this.renderPersonnelCards();
-        });
-
-        // Reset Filter
-        document.getElementById('btnResetFilter')?.addEventListener('click', () => {
-          this.filterState = {
-            search: '',
-            pangkat: 'all',
-            satuan: 'all',
-            status: 'all',
-            wilayah: 'all',
-            sort: 'pangkat_hierarki'
-          };
-          if (searchInput) searchInput.value = '';
-          document.getElementById('filterPangkat').value = 'all';
-          document.getElementById('filterSatuan').value = 'all';
-          document.getElementById('filterStatus').value = 'all';
-          document.getElementById('filterWilayah').value = 'all';
-          document.getElementById('sortSelection').value = 'pangkat_hierarki';
-          this.renderPersonnelCards();
-          this.showToast("Filter pencarian telah direset.");
-        });
-
-        // Toggles
-        document.getElementById('btnToggleMask')?.addEventListener('click', () => this.toggleMasking());
-        document.getElementById('btnToggleTheme')?.addEventListener('click', () => this.toggleTheme());
-        document.getElementById('btnToggleFullscreen')?.addEventListener('click', () => this.toggleFullscreen());
-        document.getElementById('btnMobileMenu')?.addEventListener('click', () => toggleMobileMenu());
-
-        // Modal Close Buttons
-        document.getElementById('modalCloseBtn')?.addEventListener('click', () => this.closeModal());
-        document.getElementById('modalBottomCloseBtn')?.addEventListener('click', () => this.closeModal());
-        document.getElementById('detailModalOverlay')?.addEventListener('click', (e) => {
-          if (e.target.id === 'detailModalOverlay') this.closeModal();
-        });
-
-        // Map Layers
-        document.getElementById('mapLayerDark')?.addEventListener('click', () => this.setMapLayer('dark'));
-        document.getElementById('mapLayerStandard')?.addEventListener('click', () => this.setMapLayer('standard'));
-        document.getElementById('btnFitAllMap')?.addEventListener('click', () => this.fitAllMapLocations());
-      }
-    }
-
-    // Helper Toggle Mobile
-    function toggleMobileMenu() {
-      const drawer = document.getElementById('mobileDrawer');
-      if (drawer) drawer.classList.toggle('open');
-    }
-
-    // Global Instance & Bootstrap
-    let app = null;
-    document.addEventListener('DOMContentLoaded', () => {
-      app = new SindikatApp();
-      window.app = app;
-      app.init();
+    let leafletMap = null;
+    let mapMarkers = {};
+
+    /* ============================================================
+       INIT DASHBOARD
+       ============================================================ */
+    window.addEventListener('DOMContentLoaded', () => {
+      initRadarCanvas();
+      populateFilterOptions();
+      renderPersonnelCards(rawPersonnelData);
+      initLeafletMap();
+      setupEventListeners();
     });
+
+    /* ============================================================
+       RADAR CANVAS ANIMATION
+       ============================================================ */
+    function initRadarCanvas() {
+      const canvas = document.getElementById('radarCanvas');
+      if (!canvas) return;
+      const ctx = canvas.getContext('2d');
+      let angle = 0;
+
+      function drawRadar() {
+        const width = canvas.width;
+        const height = canvas.height;
+        const centerX = width / 2;
+        const centerY = height / 2;
+        const radius = width / 2 - 10;
+
+        ctx.clearRect(0, 0, width, height);
+
+        ctx.strokeStyle = 'rgba(0, 242, 254, 0.18)';
+        ctx.lineWidth = 1;
+        for (let i = 1; i <= 4; i++) {
+          ctx.beginPath();
+          ctx.arc(centerX, centerY, (radius / 4) * i, 0, Math.PI * 2);
+          ctx.stroke();
+        }
+
+        ctx.save();
+        ctx.beginPath();
+        ctx.moveTo(centerX, centerY);
+        ctx.arc(centerX, centerY, radius, angle, angle + 0.4);
+        ctx.closePath();
+        const grad = ctx.createRadialGradient(centerX, centerY, 10, centerX, centerY, radius);
+        grad.addColorStop(0, 'rgba(0, 242, 254, 0.4)');
+        grad.addColorStop(1, 'rgba(0, 242, 254, 0.02)');
+        ctx.fillStyle = grad;
+        ctx.fill();
+        ctx.restore();
+
+        angle += 0.025;
+        if (angle >= Math.PI * 2) angle = 0;
+        requestAnimationFrame(drawRadar);
+      }
+      drawRadar();
+    }
+
+    /* ============================================================
+       DYNAMIC FILTERS
+       ============================================================ */
+    function populateFilterOptions() {
+      const ranks = [...new Set(rawPersonnelData.map(p => p.rank))];
+      const units = [...new Set(rawPersonnelData.map(p => p.unit))];
+
+      fillSelect('filterRank', ranks);
+      fillSelect('filterUnit', units);
+    }
+
+    function fillSelect(elemId, array) {
+      const select = document.getElementById(elemId);
+      array.forEach(item => {
+        const opt = document.createElement('option');
+        opt.value = item;
+        opt.textContent = item;
+        select.appendChild(opt);
+      });
+    }
+
+    /* ============================================================
+       RENDER PERSONNEL CARDS
+       ============================================================ */
+    function renderPersonnelCards(data) {
+      const container = document.getElementById('personnelGridContainer');
+      container.innerHTML = '';
+
+      data.forEach(p => {
+        const card = document.createElement('div');
+        card.className = 'personnel-card';
+        card.innerHTML = `
+          <div>
+            <div class="card-photo-container">
+              <img src="${p.photo}" class="card-photo-img" alt="${p.name}" onerror="this.src='https://via.placeholder.com/400x300?text=No+Image';">
+            </div>
+            <div>
+              <span class="rank-tag">${p.rank}</span>
+              <div class="card-person-name">${p.name}</div>
+            </div>
+            <div style="margin-top:0.8rem;">
+              <div class="card-data-row">
+                <span class="card-data-label">NRP</span>
+                <span class="card-data-val">${p.nrp}</span>
+              </div>
+              <div class="card-data-row">
+                <span class="card-data-label">JABATAN</span>
+                <span class="card-data-val">${p.position}</span>
+              </div>
+              <div class="card-data-row">
+                <span class="card-data-label">SATUAN</span>
+                <span class="card-data-val">${p.unit}</span>
+              </div>
+              <div class="card-data-row">
+                <span class="card-data-label">STATUS</span>
+                <span class="card-data-val">${p.status}</span>
+              </div>
+              <div class="card-data-row">
+                <span class="card-data-label">ALAMAT</span>
+                <span class="card-data-val" style="color:var(--accent-cyan);">${p.address}</span>
+              </div>
+            </div>
+          </div>
+          <div class="card-btn-grid">
+            <button class="tactical-btn-sm" onclick="focusOnMap(${p.id})">
+              <i class="fa-solid fa-crosshairs"></i> LIHAT DI PETA
+            </button>
+          </div>
+        `;
+        container.appendChild(card);
+      });
+    }
+
+    /* ============================================================
+       FILTERING PIPELINE
+       ============================================================ */
+    function filterPersonnel() {
+      const q = document.getElementById('searchInput').value.toLowerCase().trim();
+      const rank = document.getElementById('filterRank').value;
+      const unit = document.getElementById('filterUnit').value;
+
+      const filtered = rawPersonnelData.filter(p => {
+        const matchesQ = !q || p.name.toLowerCase().includes(q) || p.nrp.toLowerCase().includes(q) || p.address.toLowerCase().includes(q) || p.unit.toLowerCase().includes(q);
+        const matchesRank = !rank || p.rank === rank;
+        const matchesUnit = !unit || p.unit === unit;
+
+        return matchesQ && matchesRank && matchesUnit;
+      });
+
+      renderPersonnelCards(filtered);
+    }
+
+    /* ============================================================
+       LEAFLET MAP INITIALIZATION
+       ============================================================ */
+    function initLeafletMap() {
+      leafletMap = L.map('unitLocationMap').setView([-2.548926, 118.014863], 5);
+
+      L.tileLayer('https://{s}.basemaps.cartocdn.com/dark_all/{z}/{x}/{y}{r}.png', {
+        attribution: '&copy; OpenStreetMap',
+        maxZoom: 19
+      }).addTo(leafletMap);
+
+      const customIcon = L.divIcon({
+        className: 'custom-tactical-pin',
+        html: `<div class="pin-wave"></div><div class="pin-core"></div>`,
+        iconSize: [20, 20],
+        iconAnchor: [10, 10]
+      });
+
+      rawPersonnelData.forEach(p => {
+        if (p.lat && p.lng) {
+          const marker = L.marker([p.lat, p.lng], { icon: customIcon }).addTo(leafletMap);
+          marker.bindPopup(`
+            <div style="padding:0.2rem; color:#000;">
+              <strong>${p.rank} ${p.name}</strong><br>
+              <span style="font-size:0.75rem;">${p.position}</span><br>
+              <span style="font-size:0.72rem; color:green;">${p.address}</span>
+            </div>
+          `);
+          mapMarkers[p.id] = marker;
+        }
+      });
+    }
+
+    function focusOnMap(id) {
+      const person = rawPersonnelData.find(p => p.id === id);
+      if (!person) return;
+
+      document.getElementById('mapSection').scrollIntoView({ behavior: 'smooth' });
+      
+      setTimeout(() => {
+        leafletMap.setView([person.lat, person.lng], 11, { animate: true });
+        if (mapMarkers[id]) {
+          mapMarkers[id].openPopup();
+        }
+      }, 500);
+    }
+
+    /* ============================================================
+       LISTENERS & SETUP
+       ============================================================ */
+    function setupEventListeners() {
+      document.getElementById('searchInput').addEventListener('input', filterPersonnel);
+      document.getElementById('filterRank').addEventListener('change', filterPersonnel);
+      document.getElementById('filterUnit').addEventListener('change', filterPersonnel);
+      
+      document.getElementById('resetFiltersBtn').addEventListener('click', () => {
+        document.getElementById('searchInput').value = '';
+        document.getElementById('filterRank').value = '';
+        document.getElementById('filterUnit').value = '';
+        renderPersonnelCards(rawPersonnelData);
+      });
+
+      document.getElementById('themeToggleBtn').addEventListener('click', () => {
+        document.body.classList.toggle('light-mode');
+      });
+    }
   </script>
 </body>
 </html>
